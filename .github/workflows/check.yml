@@ -1,0 +1,39 @@
+# ワークフローの名前
+name: check
+# ワークフロー実行タイミングは
+on:
+  # mainブランチへのPUSH
+  push:
+    branches:
+      - main
+  # プルリクの作成と更新
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  check: # job名
+    # ubuntuで動かす
+    runs-on: ubuntu-latest
+    steps:
+      # ソースコードのチェックアウト
+      - uses: actions/checkout@v2
+      # Flutter環境のセットアップ
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.2'
+          channel: 'stable'
+          cache: true
+      # 依存ライブラリのダウンロード
+      - run: flutter pub get
+      # build_runnerの実行
+      # - run: flutter pub run build_runner build
+      # フォーマットの確認
+      - run: flutter format -n --set-exit-if-changed .
+      # 単体テストの実行とカバレッジレポートの出力
+      - run: flutter test --coverage
+      # カバレッジレポートをCodecovに送る
+      # - run: curl -Os https://uploader.codecov.io/latest/linux/codecov
+      # - run: chmod +x codecov
+      # - run: ./codecov -t ${{ secrets.CODECOV_TOKEN }}
