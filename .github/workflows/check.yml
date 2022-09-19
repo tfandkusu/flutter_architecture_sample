@@ -27,8 +27,8 @@ jobs:
           cache: true
       # 依存ライブラリのダウンロード
       - run: flutter pub get
-      # build_runnerの実行
-      # - run: flutter pub run build_runner build
+      # freezedのためにbuild_runnerの実行
+      - run: flutter pub run build_runner build
       # フォーマットの確認
       - run: flutter format -n --set-exit-if-changed .
       # 単体テストの実行とカバレッジレポートの出力
