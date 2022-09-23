@@ -17,7 +17,7 @@ class GithubRepoRepository {
       this._remoteDataStore, this._favoriteLocalDataStore, this._stateNotifier);
 
   /// Githubリポジトリ一覧を読み込んでアプリ内に保持する
-  void fetch() async {
+  Future<void> fetch() async {
     // GitHubリポジトリ一覧をAPIから取得する
     final repoList = await _remoteDataStore.getGitHubRepoList();
     // 「いいね」を付けたリポジトリ名一覧をローカルから読み込む
@@ -35,7 +35,7 @@ class GithubRepoRepository {
   /// いいねを設定する
   /// [name] GitHubリポジトリ名
   /// [favorite] trueの場合は「いいね」を付ける。falseの場合は「いいね」を消す。
-  void setFavorite(String name, bool favorite) {
+  Future<void> setFavorite(String name, bool favorite) async {
     _favoriteLocalDataStore.setFavorite(name, favorite);
     _stateNotifier.setFavorite(name, favorite);
   }
