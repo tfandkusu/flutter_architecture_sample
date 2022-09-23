@@ -4,7 +4,7 @@ import 'package:flutter_architecture_sample/data/repository/github_repo_list_sta
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// GithubRepoRepositoryを作成して提供する
+/// GithubRepoRepositoryを作成して提供するProvider
 final githubRepoRepositoryProvider = Provider((ref) {
   final remoteDataStore = ref.read(githubRepoRemoteDataStoreProvider);
   final favoriteLocalDataStore = ref.read(favoriteLocalDataStoreProvider);

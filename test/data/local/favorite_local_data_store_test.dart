@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// FavoriteLocalDataStoreのテスト
 void main() {
   test("FavoriteLocalDataStore", () async {
-    // テスト用の設定を行う
+    // PC上で単体テストが動くようにするための設定
     SharedPreferences.setMockInitialValues({});
     final container = ProviderContainer();
     final localDataStore = container.read(favoriteLocalDataStoreProvider);
@@ -14,14 +14,18 @@ void main() {
     expect(await localDataStore.getFavoriteRepoNameSet(), <String>{});
     // flutter_architecture_sampleに「いいね」を付ける
     localDataStore.setFavorite('flutter_architecture_sample', true);
+    // flutter_architecture_sampleだけのセットを取得する
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'flutter_architecture_sample'});
     // android_app_templateに「いいね」を付ける
     localDataStore.setFavorite('android_app_template', true);
+    // さっき「いいね」を付けたflutter_architecture_sample
+    // android_app_templateのセットを取得する
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'flutter_architecture_sample', 'android_app_template'});
     // flutter_architecture_sampleから「いいね」を消す
     localDataStore.setFavorite('flutter_architecture_sample', false);
+    // さっき「いいね」を付けたandroid_app_templateだけのセットを取得する
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'android_app_template'});
     // android_app_templateに多重に「いいね」をつける

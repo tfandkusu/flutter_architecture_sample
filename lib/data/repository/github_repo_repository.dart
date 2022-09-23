@@ -2,7 +2,7 @@ import 'package:flutter_architecture_sample/data/local/favorite_local_data_store
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier.dart';
 
-/// GitHubリポジトリについて、データ層を代表して更新する担当
+/// データ層を代表してアプリに表示するGitHubリポジトリ一覧を更新する担当
 class GithubRepoRepository {
   /// APIからGitHubの情報を取ってくる担当
   final GitHubRepoRemoteDataStore _remoteDataStore;
@@ -28,7 +28,7 @@ class GithubRepoRepository {
         .map((repo) =>
             repo.copyWith(favorite: favoriteRepoNameSet.contains(repo.name)))
         .toList();
-    // UI層に通知するためにStateNotifierに設定する
+    // UI層を更新するためにStateNotifierに設定する
     _stateNotifier.setList(githubRepoListWithFavorite);
   }
 
@@ -36,7 +36,9 @@ class GithubRepoRepository {
   /// [name] GitHubリポジトリ名
   /// [favorite] trueの場合は「いいね」を付ける。falseの場合は「いいね」を消す。
   Future<void> setFavorite(String name, bool favorite) async {
+    // アプリローカルのデータを更新する
     _favoriteLocalDataStore.setFavorite(name, favorite);
+    // UI層も更新するためにStateNotifierに設定する
     _stateNotifier.setFavorite(name, favorite);
   }
 }
