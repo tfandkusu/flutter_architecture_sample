@@ -49,3 +49,5 @@ coverage/
 *.freezed.dart
 # Retrofit
 *.g.dart
+# Mockito
+*.mocks.dart
