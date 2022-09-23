@@ -2,6 +2,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'github_repo_list_response_item.g.dart';
 
+/// GitHubのREST APIから取得できるリポジトリの情報
+///
+/// [id] GitHubのリポジトリのID
+/// [name] リポジトリ名
+/// [description] 説明文
+/// [updatedAt] 更新日時
+/// [language] プログラミング言語
+/// [htmlUrl] ブラウザで開くときのURL
+/// [fork] フォークされたリポジトリであるフラグ
 @JsonSerializable()
 class GithubRepoListResponseItem {
   int id;
