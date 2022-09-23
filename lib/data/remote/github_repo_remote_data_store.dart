@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_architecture_sample/data/remote/api/github_api_client.dart';
-import 'package:flutter_architecture_sample/data/remote/error/api_exceptions.dart';
+import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
 
 /// APIからGitHubの情報を取ってくる担当
