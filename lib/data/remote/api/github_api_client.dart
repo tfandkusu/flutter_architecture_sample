@@ -1,4 +1,4 @@
-import 'package:flutter_architecture_sample/data/remote/github_repo_list_response_item.dart';
+import 'package:flutter_architecture_sample/data/remote/api/github_repo_list_response_item.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
