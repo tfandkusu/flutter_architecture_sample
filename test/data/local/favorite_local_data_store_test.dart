@@ -10,25 +10,25 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     final container = ProviderContainer();
     final localDataStore = container.read(favoriteLocalDataStoreProvider);
-    // 最初は何もいいねをしていない
+    // 最初は何も「いいね」をしていない
     expect(await localDataStore.getFavoriteRepoNameSet(), <String>{});
-    // flutter_architecture_sampleに、いいねを付ける
+    // flutter_architecture_sampleに「いいね」を付ける
     localDataStore.setFavorite('flutter_architecture_sample', true);
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'flutter_architecture_sample'});
-    // android_app_templateに、いいねを付ける
+    // android_app_templateに「いいね」を付ける
     localDataStore.setFavorite('android_app_template', true);
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'flutter_architecture_sample', 'android_app_template'});
-    // flutter_architecture_sampleから、いいねを消す
+    // flutter_architecture_sampleから「いいね」を消す
     localDataStore.setFavorite('flutter_architecture_sample', false);
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'android_app_template'});
-    // android_app_templateに多重に、いいねをつける
+    // android_app_templateに多重に「いいね」をつける
     localDataStore.setFavorite('android_app_template', true);
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'android_app_template'});
-    // 存在しないリポジトリの、いいねを消す
+    // 存在しないリポジトリの「いいね」を消す
     localDataStore.setFavorite('unknown', false);
     expect(await localDataStore.getFavoriteRepoNameSet(),
         <String>{'android_app_template'});
