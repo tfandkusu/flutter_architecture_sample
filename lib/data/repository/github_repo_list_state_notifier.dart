@@ -1,7 +1,7 @@
 import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// GitHubリポジトリ一覧のStateNotifier
+/// Githubリポジトリ一覧をUI層を更新するために保持する担当クラス
 class GithubRepoListStateNotifier extends StateNotifier<List<GithubRepo>> {
   GithubRepoListStateNotifier() : super([]);
 
