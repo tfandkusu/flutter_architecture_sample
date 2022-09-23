@@ -13,6 +13,9 @@ dependencies:
   freezed_annotation: ^2.1.0
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^1.0.4
+  retrofit: ^3.0.1+1
+  dio: ^4.0.6
+  json_annotation: ^4.7.0
 
 dev_dependencies:
   flutter_test:
@@ -20,6 +23,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.2.1
   freezed: ^2.1.0+1
+  retrofit_generator: ^4.0.3+2
+  json_serializable: ^6.4.0
 
 flutter:
   uses-material-design: true

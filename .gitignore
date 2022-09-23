@@ -47,3 +47,5 @@ app.*.map.json
 coverage/
 # freezed
 *.freezed.dart
+# Retrofit
+*.g.dart
