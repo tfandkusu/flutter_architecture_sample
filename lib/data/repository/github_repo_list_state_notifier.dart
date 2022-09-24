@@ -5,6 +5,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GithubRepoListStateNotifier extends StateNotifier<List<GithubRepo>> {
   GithubRepoListStateNotifier() : super([]);
 
+  /// 単体テスト向けに状態を設定して作成する
+  ///
+  /// [homeUiModel] 単体テスト向けの状態
+  GithubRepoListStateNotifier.override(List<GithubRepo> list) : super(list);
+
   /// 読み込んだGithubリポジトリ一覧を設定する
   void setList(List<GithubRepo> list) {
     state = list;
