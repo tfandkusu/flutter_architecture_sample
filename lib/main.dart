@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_dummy.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_provider.dart';
+import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'feature/home/home_screen.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Architecture Sample',
+        title: Strings.appTitle,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

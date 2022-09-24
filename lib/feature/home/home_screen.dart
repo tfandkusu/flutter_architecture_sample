@@ -3,6 +3,7 @@ import 'package:flutter_architecture_sample/feature/home/home_event_handler.dart
 import 'package:flutter_architecture_sample/feature/home/home_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/feature/home/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
+import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,7 +28,7 @@ class HomeScreen extends HookConsumerWidget {
     }
     return Scaffold(
         appBar: AppBar(
-          title: const Text("GitHub Repository List"),
+          title: const Text(Strings.homeTitle),
         ),
         body: ListView(
           children: items,
@@ -56,7 +57,7 @@ class HomeScreen extends HookConsumerWidget {
                   color: repo.favorite
                       ? Colors.red.shade400
                       : Colors.grey.shade500),
-              tooltip: 'Like',
+              tooltip: Strings.like,
               onPressed: () {
                 eventHandler.onClickFavorite(repo.name, !repo.favorite);
               },
