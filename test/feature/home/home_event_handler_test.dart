@@ -15,7 +15,7 @@ import 'home_event_handler_test.mocks.dart';
     [MockSpec<GithubRepoRepository>(), MockSpec<HomeUiModelStateNotifier>()])
 void main() {
   // 読み込み処理の成功ケース
-  test("HomeEventHandler#load success", () async {
+  test("HomeEventHandler#start success", () async {
     // 依存するインスタンスのモック実装を作成する
     final repository = MockGithubRepoRepository();
     final stateNotifier = MockHomeUiModelStateNotifier();
@@ -27,9 +27,25 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(homeEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.load();
+    await eventHandler.start();
+    verifyInOrder([repository.fetch(), stateNotifier.onLoadSuccess()]);
+  });
+  // リロード成功ケース
+  test("HomeEventHandler#reload success", () async {
+    // 依存するインスタンスのモック実装を作成する
+    final repository = MockGithubRepoRepository();
+    final stateNotifier = MockHomeUiModelStateNotifier();
+    // Providerが提供するインスタンスをモック実装に差し替える
+    final container = ProviderContainer(overrides: [
+      githubRepoRepositoryProvider.overrideWithValue(repository),
+      homeUiModelStateNotifierProvider.overrideWithValue(stateNotifier)
+    ]);
+    // テスト対象を取得
+    final eventHandler = container.read(homeEventHandlerProvider);
+    // テスト対象メソッドを呼び出し
+    await eventHandler.reload();
     verifyInOrder([
-      stateNotifier.onLoadStart(),
+      stateNotifier.onReload(),
       repository.fetch(),
       stateNotifier.onLoadSuccess()
     ]);
@@ -48,12 +64,8 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(homeEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.load();
-    verifyInOrder([
-      stateNotifier.onLoadStart(),
-      repository.fetch(),
-      stateNotifier.onNetworkError()
-    ]);
+    await eventHandler.start();
+    verifyInOrder([repository.fetch(), stateNotifier.onNetworkError()]);
   });
   // 読み込み処理がサーバエラーのケース
   test("HomeEventHandler#load serverError", () async {
@@ -69,12 +81,8 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(homeEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.load();
-    verifyInOrder([
-      stateNotifier.onLoadStart(),
-      repository.fetch(),
-      stateNotifier.onServerError()
-    ]);
+    await eventHandler.start();
+    verifyInOrder([repository.fetch(), stateNotifier.onServerError()]);
   });
   // 「いいね」ボタンが押された
   test("HomeEventHandler#onClickFavorite", () async {

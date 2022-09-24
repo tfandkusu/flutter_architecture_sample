@@ -6,7 +6,7 @@ import 'package:flutter_architecture_sample/feature/home/home_ui_model_state_not
 import 'package:flutter_architecture_sample/feature/home/home_ui_model_state_notifier_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../catalog/github_repo_catalog.dart';
+import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 
 void main() {
   test("homeUiModelProvider", () async {

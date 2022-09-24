@@ -12,11 +12,22 @@ class HomeEventHandler {
 
   HomeEventHandler(this._stateNotifier, this._repository);
 
-  /// 画面が作られた時、または再読込ボタンが押されたときに呼ばれる
-  Future<void> load() async {
+  Future<void> start() async {
+    _load(false);
+  }
+
+  Future<void> reload() async {
+    _load(true);
+  }
+
+  /// 読み込み処理
+  Future<void> _load(bool reload) async {
     try {
-      // 読み込み開始
-      _stateNotifier.onLoadStart();
+      if (reload) {
+        // エラー表示を消して
+        // useEffectで状態を更新できないので
+        _stateNotifier.onReload();
+      }
       // フェッチ処理
       await _repository.fetch();
       // 処理成功

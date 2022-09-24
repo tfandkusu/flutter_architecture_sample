@@ -20,33 +20,7 @@ void main() {
             repos: [],
             networkError: false,
             serverError: false));
-    // 読み込み開始
-    stateNotifier.onLoadStart();
-    expect(
-        getState(),
-        const HomeUiModel(
-            progress: true,
-            repos: [],
-            networkError: false,
-            serverError: false));
-    // 読み込み成功
-    stateNotifier.onLoadSuccess();
-    expect(
-        getState(),
-        const HomeUiModel(
-            progress: false,
-            repos: [],
-            networkError: false,
-            serverError: false));
-    // 読み込み開始 → ネットワークエラー
-    stateNotifier.onLoadStart();
-    expect(
-        getState(),
-        const HomeUiModel(
-            progress: true,
-            repos: [],
-            networkError: false,
-            serverError: false));
+    // ネットワークエラー
     stateNotifier.onNetworkError();
     expect(
         getState(),
@@ -55,8 +29,25 @@ void main() {
             repos: [],
             networkError: true,
             serverError: false));
-    // 読み込み開始 → サーバーエラー
-    stateNotifier.onLoadStart();
+    // リロード → 読み込み成功
+    stateNotifier.onReload();
+    expect(
+        getState(),
+        const HomeUiModel(
+            progress: true,
+            repos: [],
+            networkError: false,
+            serverError: false));
+    stateNotifier.onLoadSuccess();
+    expect(
+        getState(),
+        const HomeUiModel(
+            progress: false,
+            repos: [],
+            networkError: false,
+            serverError: false));
+    // リロード → サーバーエラー
+    stateNotifier.onReload();
     expect(
         getState(),
         const HomeUiModel(

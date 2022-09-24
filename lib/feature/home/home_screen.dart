@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/home/home_state_notifier_provider.dart';
+import 'package:flutter_architecture_sample/feature/home/home_event_handler_provider.dart';
+import 'package:flutter_architecture_sample/feature/home/home_ui_model_provider.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -7,33 +9,18 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(homeStateNotifierProvider);
-    final stateNotifier = ref.read(homeStateNotifierProvider.notifier);
+    final uiModel = ref.watch(homeUiModelProvider);
+    final eventHandler = ref.read(homeEventHandlerProvider);
+    useEffect(() {
+      eventHandler.start();
+      return () {};
+    });
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("GitHub Repository List"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$count',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        appBar: AppBar(
+          title: const Text("GitHub Repository List"),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          stateNotifier.countUp();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: ListView(
+          children: uiModel.repos.map((repo) => Text(repo.name)).toList(),
+        ));
   }
 }
