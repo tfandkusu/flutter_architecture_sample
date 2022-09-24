@@ -36,9 +36,9 @@ class GithubRepoRepository {
   /// [name] GitHubリポジトリ名
   /// [favorite] trueの場合は「いいね」を付ける。falseの場合は「いいね」を消す。
   Future<void> setFavorite(String name, bool favorite) async {
+    // UI層を更新するためにStateNotifierに設定する
+    _stateNotifier.setFavorite(name, favorite);
     // アプリローカルのデータを更新する
     _favoriteLocalDataStore.setFavorite(name, favorite);
-    // UI層も更新するためにStateNotifierに設定する
-    _stateNotifier.setFavorite(name, favorite);
   }
 }

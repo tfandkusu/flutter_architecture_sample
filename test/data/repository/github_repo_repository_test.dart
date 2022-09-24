@@ -73,8 +73,8 @@ void main() {
     repository.setFavorite("observe_room", true);
     // 依存するインスタンスのメソッドの呼ばれ方を確認する
     verifyInOrder([
-      localDataStore.setFavorite("observe_room", true),
-      stateNotifier.setFavorite("observe_room", true)
+      stateNotifier.setFavorite("observe_room", true),
+      localDataStore.setFavorite("observe_room", true)
     ]);
   });
 }
