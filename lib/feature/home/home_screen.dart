@@ -34,17 +34,37 @@ class HomeScreen extends HookConsumerWidget {
         ));
   }
 
+  /// GitHubリポジトリ1個分のListViewの行Widgetを作成する
+  ///
+  /// [eventHandler] イベント処理担当オブジェクト
+  /// [repo] GitHubリポジトリ
   Widget buildRepoListItem(HomeEventHandler eventHandler, GithubRepo repo) {
     return Column(
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              repo.name,
-              style: const TextStyle(fontSize: 16),
-            )
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                repo.name,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.favorite,
+                  color: repo.favorite
+                      ? Colors.red.shade400
+                      : Colors.grey.shade500),
+              tooltip: 'Like',
+              onPressed: () {
+                eventHandler.onClickFavorite(repo.name, !repo.favorite);
+              },
+            ),
           ],
+        ),
+        const Divider(
+          thickness: 1,
         )
       ],
     );
