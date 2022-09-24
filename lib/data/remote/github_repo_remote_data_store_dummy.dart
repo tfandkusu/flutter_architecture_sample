@@ -8,7 +8,9 @@ import 'github_repo_remote_data_store.dart';
 /// [client] Retrofit for Dartで作成したAPIクライアント
 class GitHubRepoRemoteDataStoreDummy implements GitHubRepoRemoteDataStore {
   /// ユーザtfandkusuの公開GitHubリポジトリ一覧を取得する
+  @override
   Future<List<GithubRepo>> getGitHubRepoList() async {
+    await Future.delayed(const Duration(seconds: 2));
     return getGithubRepoCatalog();
   }
 }
