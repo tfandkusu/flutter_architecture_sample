@@ -3,6 +3,7 @@ import 'package:flutter_architecture_sample/feature/home/home_event_handler.dart
 import 'package:flutter_architecture_sample/feature/home/home_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/feature/home/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
+import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -49,14 +50,12 @@ class HomeScreen extends HookConsumerWidget {
             Expanded(
               child: Text(
                 repo.name,
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, color: MyColors.textHE),
               ),
             ),
             IconButton(
               icon: Icon(Icons.favorite,
-                  color: repo.favorite
-                      ? Colors.red.shade400
-                      : Colors.grey.shade500),
+                  color: repo.favorite ? MyColors.likeOn : MyColors.likeOff),
               tooltip: Strings.like,
               onPressed: () {
                 eventHandler.onClickFavorite(repo.name, !repo.favorite);
