@@ -40,7 +40,7 @@ jobs:
       # フォーマットの確認
       - run: flutter format -n --set-exit-if-changed .
       # lintの出力
-      - run: flutter analyze > flutter_analyze_report.txt
+      - run: flutter analyze --no-fatal-infos  --no-fatal-warnings > flutter_analyze_report.txt
       # Dangerでプルリクに投稿する
       - run: bundle exec danger
         env:
