@@ -27,7 +27,10 @@ void main() {
     final stateNotifier = MockGithubRepoListStateNotifier();
     // GitHubRepoRemoteDataStoreのモックレスポンスを設定する
     final repoList = getGithubRepoCatalog();
-    when(remoteDataStore.getGitHubRepoList()).thenAnswer((_) async => repoList);
+    // 更新日降順にソートする件のテストのために逆順にする
+    final repoListForSortTest = repoList.reversed.toList();
+    when(remoteDataStore.getGitHubRepoList())
+        .thenAnswer((_) async => repoListForSortTest);
     // FavoriteLocalDataStoreのモックレスポンスを作成する
     when(localDataStore.getFavoriteRepoNameSet())
         .thenAnswer((_) async => {"observe_room"});

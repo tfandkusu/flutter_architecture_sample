@@ -44,8 +44,11 @@ class HomeScreen extends HookConsumerWidget {
       }));
     } else {
       // 読み込み成功
-      items.addAll(
-          uiModel.repos.map((repo) => _buildRepoListItem(eventHandler, repo)));
+      for (int i = 0; i < uiModel.repos.length; ++i) {
+        final repo = uiModel.repos[i];
+        items.add(_buildRepoListItem(
+            eventHandler, repo, i == uiModel.repos.length - 1));
+      }
     }
     return Scaffold(
         appBar: AppBar(
@@ -60,15 +63,19 @@ class HomeScreen extends HookConsumerWidget {
   ///
   /// [eventHandler] イベント処理担当オブジェクト
   /// [repo] GitHubリポジトリ
-  Widget _buildRepoListItem(HomeEventHandler eventHandler, GithubRepo repo) {
+  Widget _buildRepoListItem(
+      HomeEventHandler eventHandler, GithubRepo repo, bool isLast) {
     return Column(
       children: [
         _buildLine1(eventHandler, repo),
         _HomeRepoListItemDescription(repo.description),
         _HomeRepoListItemLine3(repo.language, repo.updatedAt),
-        const SizedBox(height: 8),
-        const Divider(
-          thickness: 1,
+        SizedBox(height: isLast ? 16 : 8),
+        Visibility(
+          visible: !isLast,
+          child: const Divider(
+            thickness: 1,
+          ),
         )
       ],
     );
