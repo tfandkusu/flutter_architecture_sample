@@ -25,7 +25,7 @@ class HomeScreen extends HookConsumerWidget {
       items.add(const HomeProgressListItem());
     } else {
       items.addAll(
-          uiModel.repos.map((repo) => buildRepoListItem(eventHandler, repo)));
+          uiModel.repos.map((repo) => _buildRepoListItem(eventHandler, repo)));
     }
     return Scaffold(
         appBar: AppBar(
@@ -40,57 +40,62 @@ class HomeScreen extends HookConsumerWidget {
   ///
   /// [eventHandler] イベント処理担当オブジェクト
   /// [repo] GitHubリポジトリ
-  Widget buildRepoListItem(HomeEventHandler eventHandler, GithubRepo repo) {
+  Widget _buildRepoListItem(HomeEventHandler eventHandler, GithubRepo repo) {
     return Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(width: 16),
-            // GitHubリポジトリ名
-            Expanded(
-              child: Text(
-                repo.name,
-                style: const TextStyle(fontSize: 16, color: MyColors.textHE),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-            Visibility(visible: repo.fork, child: const SizedBox(width: 16)),
-            Visibility(
-                visible: repo.fork,
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
-                  decoration: BoxDecoration(
-                      color: MyColors.forkLabelBackground,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: const Text(
-                    Strings.fork,
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: MyColors.white),
-                  ),
-                )),
-            IconButton(
-              icon: Icon(Icons.favorite,
-                  color: repo.favorite ? MyColors.likeOn : MyColors.likeOff),
-              tooltip: Strings.like,
-              onPressed: () {
-                eventHandler.onClickFavorite(repo.name, !repo.favorite);
-              },
-            ),
-          ],
-        ),
+        _buildLine1(eventHandler, repo),
+        HomeRepoListItemDescription(repo.description),
         const Divider(
           thickness: 1,
         )
       ],
     );
   }
+
+  /// リポジトリ名、フォークラベル、「いいね」ボタンのWidgetを作成する
+  Widget _buildLine1(HomeEventHandler eventHandler, GithubRepo repo) {
+    return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      const SizedBox(width: 16),
+      // GitHubリポジトリ名
+      Expanded(
+        child: Text(
+          repo.name,
+          style: const TextStyle(fontSize: 16, color: MyColors.textHE),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
+      ),
+      // フォークラベル
+      Visibility(visible: repo.fork, child: const SizedBox(width: 16)),
+      Visibility(
+          visible: repo.fork,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+            decoration: BoxDecoration(
+                color: MyColors.forkLabelBackground,
+                borderRadius: BorderRadius.circular(8)),
+            child: const Text(
+              Strings.fork,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: MyColors.white),
+            ),
+          )),
+      // 「いいね」ボタン
+      IconButton(
+        icon: Icon(Icons.favorite,
+            color: repo.favorite ? MyColors.likeOn : MyColors.likeOff),
+        tooltip: Strings.like,
+        onPressed: () {
+          eventHandler.onClickFavorite(repo.name, !repo.favorite);
+        },
+      ),
+    ]);
+  }
 }
 
-/// 読み込み中プログレス行
+/// 読み込み中プログレス行Widget
 class HomeProgressListItem extends StatelessWidget {
   const HomeProgressListItem({super.key});
 
@@ -105,4 +110,27 @@ class HomeProgressListItem extends StatelessWidget {
   }
 }
 
-///
+///説明文Widget
+class HomeRepoListItemDescription extends StatelessWidget {
+  final String _description;
+
+  const HomeRepoListItemDescription(this._description, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Visibility(
+          visible: _description.isNotEmpty,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            width: double.infinity,
+            child: Text(_description,
+                style: const TextStyle(color: MyColors.textME, fontSize: 14)),
+          ),
+        ),
+        const SizedBox(height: 8)
+      ],
+    );
+  }
+}
