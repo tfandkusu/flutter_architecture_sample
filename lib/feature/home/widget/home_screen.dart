@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/feature/home/home_event_handler.dart';
-import 'package:flutter_architecture_sample/feature/home/home_event_handler_provider.dart';
-import 'package:flutter_architecture_sample/feature/home/home_ui_model_provider.dart';
+import 'package:flutter_architecture_sample/feature/home/viewmodel/home_event_handler.dart';
+import 'package:flutter_architecture_sample/feature/home/viewmodel/home_event_handler_provider.dart';
+import 'package:flutter_architecture_sample/feature/home/viewmodel/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:flutter_architecture_sample/resource/languages.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';

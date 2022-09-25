@@ -3,7 +3,7 @@ import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_provider.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'feature/home/home_screen.dart';
+import 'feature/home/widget/home_screen.dart';
 
 void main() {
   runApp(ProviderScope(overrides: [
