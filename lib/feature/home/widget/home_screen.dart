@@ -18,24 +18,32 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 状態を取得する
     final uiModel = ref.watch(homeUiModelProvider);
+    // イベント処理担当を取得する
     final eventHandler = ref.read(homeEventHandlerProvider);
+    // 画面が作られた時の処理を行う
     useEffect(() {
       eventHandler.onCreate();
       return () {};
     });
+    // ListViewに表示するWidgetリスト
     final items = <Widget>[];
     if (uiModel.progress) {
+      // 読み込み中
       items.add(const ProgressListItem());
-    } else if (uiModel.serverError) {
-      items.add(makeServerErrorListItem(() {
-        eventHandler.onClickReload();
-      }));
     } else if (uiModel.networkError) {
+      // ネットワークエラー
       items.add(makeNetworkErrorListItem(() {
         eventHandler.onClickReload();
       }));
+    } else if (uiModel.serverError) {
+      // サーバエラー
+      items.add(makeServerErrorListItem(() {
+        eventHandler.onClickReload();
+      }));
     } else {
+      // 読み込み成功
       items.addAll(
           uiModel.repos.map((repo) => _buildRepoListItem(eventHandler, repo)));
     }
@@ -48,7 +56,7 @@ class HomeScreen extends HookConsumerWidget {
         ));
   }
 
-  /// GitHubリポジトリ1個分のListViewの行Widgetを作成する
+  /// GitHubリポジトリ1個分のListViewの項目Widgetを作成する
   ///
   /// [eventHandler] イベント処理担当オブジェクト
   /// [repo] GitHubリポジトリ
@@ -56,8 +64,8 @@ class HomeScreen extends HookConsumerWidget {
     return Column(
       children: [
         _buildLine1(eventHandler, repo),
-        HomeRepoListItemDescription(repo.description),
-        HomeRepoListItemLine3(repo.language, repo.updatedAt),
+        _HomeRepoListItemDescription(repo.description),
+        _HomeRepoListItemLine3(repo.language, repo.updatedAt),
         const SizedBox(height: 8),
         const Divider(
           thickness: 1,
@@ -104,6 +112,7 @@ class HomeScreen extends HookConsumerWidget {
             color: repo.favorite ? MyColors.likeOn : MyColors.likeOff),
         tooltip: Strings.like,
         onPressed: () {
+          // 「いいね」ボタンが押されたときの処理
           eventHandler.onClickFavorite(repo.name, !repo.favorite);
         },
       ),
@@ -112,10 +121,10 @@ class HomeScreen extends HookConsumerWidget {
 }
 
 /// 説明文Widget
-class HomeRepoListItemDescription extends StatelessWidget {
+class _HomeRepoListItemDescription extends StatelessWidget {
   final String _description;
 
-  const HomeRepoListItemDescription(this._description, {super.key});
+  const _HomeRepoListItemDescription(this._description);
 
   @override
   Widget build(BuildContext context) {
@@ -136,25 +145,28 @@ class HomeRepoListItemDescription extends StatelessWidget {
   }
 }
 
-/// 言語と更新日Widget
-class HomeRepoListItemLine3 extends StatelessWidget {
+/// プログラミング言語と更新日Widget
+class _HomeRepoListItemLine3 extends StatelessWidget {
+  /// プログラミング言語
   final String _language;
 
+  /// 更新日
   final DateTime _updatedAt;
 
-  const HomeRepoListItemLine3(this._language, this._updatedAt, {super.key});
+  const _HomeRepoListItemLine3(this._language, this._updatedAt);
 
   @override
   Widget build(BuildContext context) {
+    // プログラミング言語ラベルの色
     Color languageColor = MyColors.other;
     if (Languages.colorMap.containsKey(_language)) {
       languageColor = Languages.colorMap[_language] ?? MyColors.other;
     }
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(width: 16),
+        // プログラミング言語ラベル
         Visibility(
             visible: _language.isNotEmpty,
             child: Container(
@@ -173,6 +185,7 @@ class HomeRepoListItemLine3 extends StatelessWidget {
               ),
             )),
         const Spacer(),
+        // 更新日
         Text(makeDateString(_updatedAt),
             style: const TextStyle(fontSize: 12, color: MyColors.textME)),
         const SizedBox(width: 16),

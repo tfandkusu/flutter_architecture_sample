@@ -3,13 +3,11 @@ import 'package:flutter_architecture_sample/model/github_repo.dart';
 
 import 'github_repo_remote_data_store.dart';
 
-/// APIからGitHubの情報を取ってくる担当
-///
-/// [client] Retrofit for Dartで作成したAPIクライアント
+/// APIからGitHubの情報を取ってくる担当の開発中のダミー実装
 class GitHubRepoRemoteDataStoreDummy implements GitHubRepoRemoteDataStore {
-  /// ユーザtfandkusuの公開GitHubリポジトリ一覧を取得する
   @override
   Future<List<GithubRepo>> getGitHubRepoList() async {
+    // プログレス表示の確認のために2秒待つ
     await Future.delayed(const Duration(seconds: 2));
     // throw NetworkErrorException();
     return getGithubRepoCatalog();

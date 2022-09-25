@@ -16,7 +16,7 @@ class HomeUiModelStateNotifier extends StateNotifier<HomeUiModel> {
   HomeUiModelStateNotifier.override(HomeUiModel homeUiModel)
       : super(homeUiModel);
 
-  /// リロードが呼ばれたときに呼ばれる
+  /// リロードするときに呼ばれる
   void onReload() {
     state =
         state.copyWith(progress: true, networkError: false, serverError: false);
