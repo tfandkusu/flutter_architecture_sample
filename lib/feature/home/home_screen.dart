@@ -47,12 +47,31 @@ class HomeScreen extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(width: 16),
+            // GitHubリポジトリ名
             Expanded(
               child: Text(
                 repo.name,
                 style: const TextStyle(fontSize: 16, color: MyColors.textHE),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
+            Visibility(visible: repo.fork, child: const SizedBox(width: 16)),
+            Visibility(
+                visible: repo.fork,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+                  decoration: BoxDecoration(
+                      color: MyColors.forkLabelBackground,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: const Text(
+                    Strings.fork,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: MyColors.white),
+                  ),
+                )),
             IconButton(
               icon: Icon(Icons.favorite,
                   color: repo.favorite ? MyColors.likeOn : MyColors.likeOff),

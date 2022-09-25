@@ -5,4 +5,6 @@ class Strings {
   static const String homeTitle = "GitHub Repository List";
 
   static const String like = "like";
+
+  static const String fork = "Fork";
 }

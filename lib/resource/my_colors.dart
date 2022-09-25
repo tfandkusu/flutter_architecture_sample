@@ -13,4 +13,10 @@ class MyColors {
 
   /// 「いいね」OFF
   static final likeOff = Colors.grey.shade500;
+
+  /// 「Fork」ラベルの背景
+  static final forkLabelBackground = Colors.grey.shade700;
+
+  /// 白色
+  static const white = Colors.white;
 }
