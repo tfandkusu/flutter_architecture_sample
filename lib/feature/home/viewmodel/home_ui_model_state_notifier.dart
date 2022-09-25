@@ -1,4 +1,4 @@
-import 'package:flutter_architecture_sample/feature/home/home_ui_model.dart';
+import 'package:flutter_architecture_sample/feature/home/viewmodel/home_ui_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ホーム画面状態のStateNotifier
@@ -16,8 +16,8 @@ class HomeUiModelStateNotifier extends StateNotifier<HomeUiModel> {
   HomeUiModelStateNotifier.override(HomeUiModel homeUiModel)
       : super(homeUiModel);
 
-  /// 読み込みが開始された時に呼ばれる
-  void onLoadStart() {
+  /// リロードするときに呼ばれる
+  void onReload() {
     state =
         state.copyWith(progress: true, networkError: false, serverError: false);
   }

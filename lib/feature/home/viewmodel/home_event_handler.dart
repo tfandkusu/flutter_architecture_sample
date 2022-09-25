@@ -1,5 +1,5 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
-import 'package:flutter_architecture_sample/feature/home/home_ui_model_state_notifier.dart';
+import 'package:flutter_architecture_sample/feature/home/viewmodel/home_ui_model_state_notifier.dart';
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 
 /// ホーム画面のイベント処理担当クラス
@@ -12,11 +12,23 @@ class HomeEventHandler {
 
   HomeEventHandler(this._stateNotifier, this._repository);
 
-  /// 画面が作られた時、または再読込ボタンが押されたときに呼ばれる
-  Future<void> load() async {
+  /// 画面が開かれた時に呼ばれる
+  Future<void> onCreate() async {
+    // 読み込み処理
+    _load();
+  }
+
+  /// 再読込ボタンが押されたときに呼ばれる
+  Future<void> onClickReload() async {
+    // エラー表示を消す
+    _stateNotifier.onReload();
+    // 読み込み処理
+    _load();
+  }
+
+  /// 読み込み処理
+  Future<void> _load() async {
     try {
-      // 読み込み開始
-      _stateNotifier.onLoadStart();
       // フェッチ処理
       await _repository.fetch();
       // 処理成功

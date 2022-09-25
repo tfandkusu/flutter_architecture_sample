@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../catalog/github_repo_catalog.dart';
+import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 // Mockitoによって作られたモック実装
 import 'github_repo_repository_test.mocks.dart';
 
@@ -27,7 +27,10 @@ void main() {
     final stateNotifier = MockGithubRepoListStateNotifier();
     // GitHubRepoRemoteDataStoreのモックレスポンスを設定する
     final repoList = getGithubRepoCatalog();
-    when(remoteDataStore.getGitHubRepoList()).thenAnswer((_) async => repoList);
+    // 更新日降順にソートする件のテストのために逆順にする
+    final repoListForSortTest = repoList.reversed.toList();
+    when(remoteDataStore.getGitHubRepoList())
+        .thenAnswer((_) async => repoListForSortTest);
     // FavoriteLocalDataStoreのモックレスポンスを作成する
     when(localDataStore.getFavoriteRepoNameSet())
         .thenAnswer((_) async => {"observe_room"});

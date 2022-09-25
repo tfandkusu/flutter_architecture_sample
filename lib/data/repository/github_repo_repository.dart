@@ -20,6 +20,8 @@ class GithubRepoRepository {
   Future<void> fetch() async {
     // GitHubリポジトリ一覧をAPIから取得する
     final repoList = await _remoteDataStore.getGitHubRepoList();
+    // ソートする
+    repoList.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
     // 「いいね」を付けたリポジトリ名一覧をローカルから読み込む
     final favoriteRepoNameSet =
         await _favoriteLocalDataStore.getFavoriteRepoNameSet();

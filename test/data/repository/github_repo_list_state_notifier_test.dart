@@ -2,8 +2,7 @@ import 'package:flutter_architecture_sample/data/repository/github_repo_list_sta
 import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../catalog/github_repo_catalog.dart';
+import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 
 /// GithubRepoListStateNotifierのテスト
 void main() {

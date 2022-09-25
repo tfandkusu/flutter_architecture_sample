@@ -34,8 +34,13 @@ jobs:
       - run: flutter pub run build_runner build
       # フォーマットの確認
       - run: flutter format -n --set-exit-if-changed .
+      # lintチェック
+      - run: flutter analyze
       # 単体テストの実行とカバレッジレポートの出力
       - run: flutter test --coverage
+        # 日付処理のテストがあるので、ローカルタイムを日本にする
+        env:
+          TZ: Asia/Tokyo
       # カバレッジレポートをCodecovに送る
       - run: curl -Os https://uploader.codecov.io/latest/linux/codecov
       - run: chmod +x codecov
