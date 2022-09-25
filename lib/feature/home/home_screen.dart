@@ -6,6 +6,7 @@ import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:flutter_architecture_sample/resource/languages.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
+import 'package:flutter_architecture_sample/util/make_date_string.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -47,7 +48,7 @@ class HomeScreen extends HookConsumerWidget {
         _buildLine1(eventHandler, repo),
         HomeRepoListItemDescription(repo.description),
         HomeRepoListItemLine3(repo.language, repo.updatedAt),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
         const Divider(
           thickness: 1,
         )
@@ -155,6 +156,7 @@ class HomeRepoListItemLine3 extends StatelessWidget {
     }
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(width: 16),
         Visibility(
@@ -174,7 +176,10 @@ class HomeRepoListItemLine3 extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
             )),
-        const Spacer()
+        const Spacer(),
+        Text(makeDateString(_updatedAt),
+            style: const TextStyle(fontSize: 12, color: MyColors.textME)),
+        const SizedBox(width: 16),
       ],
     );
   }
