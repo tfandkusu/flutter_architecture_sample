@@ -3,6 +3,7 @@ import 'package:flutter_architecture_sample/feature/home/home_event_handler.dart
 import 'package:flutter_architecture_sample/feature/home/home_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/feature/home/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
+import 'package:flutter_architecture_sample/resource/languages.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -45,6 +46,8 @@ class HomeScreen extends HookConsumerWidget {
       children: [
         _buildLine1(eventHandler, repo),
         HomeRepoListItemDescription(repo.description),
+        HomeRepoListItemLine3(repo.language, repo.updatedAt),
+        const SizedBox(height: 12),
         const Divider(
           thickness: 1,
         )
@@ -70,6 +73,7 @@ class HomeScreen extends HookConsumerWidget {
       Visibility(
           visible: repo.fork,
           child: Container(
+            // TODO 縦幅調整するする
             padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
             decoration: BoxDecoration(
                 color: MyColors.forkLabelBackground,
@@ -110,7 +114,7 @@ class HomeProgressListItem extends StatelessWidget {
   }
 }
 
-///説明文Widget
+/// 説明文Widget
 class HomeRepoListItemDescription extends StatelessWidget {
   final String _description;
 
@@ -130,6 +134,47 @@ class HomeRepoListItemDescription extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8)
+      ],
+    );
+  }
+}
+
+/// 言語と更新日Widget
+class HomeRepoListItemLine3 extends StatelessWidget {
+  final String _language;
+
+  final DateTime _updatedAt;
+
+  const HomeRepoListItemLine3(this._language, this._updatedAt, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Color languageColor = MyColors.other;
+    if (Languages.colorMap.containsKey(_language)) {
+      languageColor = Languages.colorMap[_language] ?? MyColors.other;
+    }
+
+    return Row(
+      children: [
+        const SizedBox(width: 16),
+        Visibility(
+            visible: _language.isNotEmpty,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              alignment: Alignment.center,
+              height: 28,
+              decoration: BoxDecoration(
+                  color: languageColor,
+                  borderRadius: BorderRadius.circular(14)),
+              child: Text(
+                _language,
+                style: const TextStyle(
+                    color: MyColors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              ),
+            )),
+        const Spacer()
       ],
     );
   }
