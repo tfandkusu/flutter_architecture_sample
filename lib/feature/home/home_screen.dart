@@ -84,8 +84,9 @@ class HomeScreen extends HookConsumerWidget {
       Visibility(
           visible: repo.fork,
           child: Container(
-            // TODO 縦幅調整するする
-            padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+            height: 28,
+            alignment: Alignment.center,
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
             decoration: BoxDecoration(
                 color: MyColors.forkLabelBackground,
                 borderRadius: BorderRadius.circular(8)),
