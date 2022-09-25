@@ -26,7 +26,7 @@ class HomeScreen extends HookConsumerWidget {
     useEffect(() {
       eventHandler.onCreate();
       return () {};
-    });
+    }, const [] /* 1回だけ実行する */);
     // ListViewに表示するWidgetリスト
     final items = <Widget>[];
     if (uiModel.progress) {

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_dummy.dart';
-import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_provider.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'feature/home/widget/home_screen.dart';
 
 void main() {
-  runApp(ProviderScope(overrides: [
-    githubRepoRemoteDataStoreProvider
-        .overrideWithValue(GitHubRepoRemoteDataStoreDummy())
-  ], child: const MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
