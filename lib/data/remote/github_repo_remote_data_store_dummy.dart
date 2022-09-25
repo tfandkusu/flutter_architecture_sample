@@ -12,7 +12,7 @@ class GitHubRepoRemoteDataStoreDummy implements GitHubRepoRemoteDataStore {
   @override
   Future<List<GithubRepo>> getGitHubRepoList() async {
     await Future.delayed(const Duration(seconds: 2));
-    throw ServerErrorException();
+    // throw NetworkErrorException();
     return getGithubRepoCatalog();
   }
 }

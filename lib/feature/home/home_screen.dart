@@ -31,6 +31,10 @@ class HomeScreen extends HookConsumerWidget {
       items.add(makeServerErrorListItem(() {
         eventHandler.onClickReload();
       }));
+    } else if (uiModel.networkError) {
+      items.add(makeNetworkErrorListItem(() {
+        eventHandler.onClickReload();
+      }));
     } else {
       items.addAll(
           uiModel.repos.map((repo) => _buildRepoListItem(eventHandler, repo)));
