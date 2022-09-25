@@ -14,8 +14,8 @@ import 'home_event_handler_test.mocks.dart';
 @GenerateNiceMocks(
     [MockSpec<GithubRepoRepository>(), MockSpec<HomeUiModelStateNotifier>()])
 void main() {
-  // 読み込み処理の成功ケース
-  test("HomeEventHandler#start success", () async {
+  // 画面を開いたときの処理が成功
+  test("HomeEventHandler#onCreate success", () async {
     // 依存するインスタンスのモック実装を作成する
     final repository = MockGithubRepoRepository();
     final stateNotifier = MockHomeUiModelStateNotifier();
@@ -27,11 +27,11 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(homeEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.start();
+    await eventHandler.onCreate();
     verifyInOrder([repository.fetch(), stateNotifier.onLoadSuccess()]);
   });
-  // リロード成功ケース
-  test("HomeEventHandler#reload success", () async {
+  // 再読込ボタンが押されたときの処理が成功
+  test("HomeEventHandler#onClickReload success", () async {
     // 依存するインスタンスのモック実装を作成する
     final repository = MockGithubRepoRepository();
     final stateNotifier = MockHomeUiModelStateNotifier();
@@ -43,15 +43,15 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(homeEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.reload();
+    await eventHandler.onClickReload();
     verifyInOrder([
       stateNotifier.onReload(),
       repository.fetch(),
       stateNotifier.onLoadSuccess()
     ]);
   });
-  // 読み込み処理がネットワークエラーのケース
-  test("HomeEventHandler#load networkError", () async {
+  // 画面を開いたときの処理(読み込み処理)がネットワークエラーのケース
+  test("HomeEventHandler#onCreate networkError", () async {
     // 依存するインスタンスのモック実装を作成する
     final repository = MockGithubRepoRepository();
     when(repository.fetch()).thenThrow(NetworkErrorException());
@@ -64,10 +64,10 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(homeEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.start();
+    await eventHandler.onCreate();
     verifyInOrder([repository.fetch(), stateNotifier.onNetworkError()]);
   });
-  // 読み込み処理がサーバエラーのケース
+  // 画面を開いたときの処理(読み込み処理)がサーバエラーのケース
   test("HomeEventHandler#load serverError", () async {
     // 依存するインスタンスのモック実装を作成する
     final repository = MockGithubRepoRepository();
@@ -81,7 +81,7 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(homeEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.start();
+    await eventHandler.onCreate();
     verifyInOrder([repository.fetch(), stateNotifier.onServerError()]);
   });
   // 「いいね」ボタンが押された

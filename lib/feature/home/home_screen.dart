@@ -17,7 +17,7 @@ class HomeScreen extends HookConsumerWidget {
     final uiModel = ref.watch(homeUiModelProvider);
     final eventHandler = ref.read(homeEventHandlerProvider);
     useEffect(() {
-      eventHandler.start();
+      eventHandler.onCreate();
       return () {};
     });
     final items = <Widget>[];
