@@ -28,23 +28,14 @@ jobs:
           flutter-version: '3.3.2'
           channel: 'stable'
           cache: true
-      # Ruby環境のセットアップ(for Danger)
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1
-          bundler-cache: true
       # 依存ライブラリのダウンロード
       - run: flutter pub get
       # freezedのためにbuild_runnerの実行
       - run: flutter pub run build_runner build
       # フォーマットの確認
       - run: flutter format -n --set-exit-if-changed .
-      # lintの出力
-      - run: flutter analyze --no-fatal-infos  --no-fatal-warnings > flutter_analyze_report.txt
-      # Dangerでプルリクに投稿する
-      - run: bundle exec danger
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # lintチェック
+      - run: flutter analyze
       # 単体テストの実行とカバレッジレポートの出力
       - run: flutter test --coverage
         # 日付処理のテストがあるので、ローカルタイムを日本にする

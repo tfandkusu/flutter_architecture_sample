@@ -51,6 +51,3 @@ coverage/
 *.g.dart
 # Mockito
 *.mocks.dart
-# Danger
-vendor/
-
