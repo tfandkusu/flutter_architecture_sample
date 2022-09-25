@@ -7,6 +7,8 @@ import 'package:flutter_architecture_sample/resource/languages.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:flutter_architecture_sample/util/make_date_string.dart';
+import 'package:flutter_architecture_sample/widget/error_list_item.dart';
+import 'package:flutter_architecture_sample/widget/progress_list_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -24,7 +26,11 @@ class HomeScreen extends HookConsumerWidget {
     });
     final items = <Widget>[];
     if (uiModel.progress) {
-      items.add(const HomeProgressListItem());
+      items.add(const ProgressListItem());
+    } else if (uiModel.serverError) {
+      items.add(makeServerErrorListItem(() {
+        eventHandler.onClickReload();
+      }));
     } else {
       items.addAll(
           uiModel.repos.map((repo) => _buildRepoListItem(eventHandler, repo)));
@@ -97,21 +103,6 @@ class HomeScreen extends HookConsumerWidget {
         },
       ),
     ]);
-  }
-}
-
-/// 読み込み中プログレス行Widget
-class HomeProgressListItem extends StatelessWidget {
-  const HomeProgressListItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(16),
-      child: const SizedBox(
-          width: 48, height: 48, child: CircularProgressIndicator()),
-    );
   }
 }
 
