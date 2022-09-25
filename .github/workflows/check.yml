@@ -47,6 +47,9 @@ jobs:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # 単体テストの実行とカバレッジレポートの出力
       - run: flutter test --coverage
+        # 日付処理のテストがあるので、ローカルタイムを日本にする
+        env:
+          TZ: Asia/Tokyo
       # カバレッジレポートをCodecovに送る
       - run: curl -Os https://uploader.codecov.io/latest/linux/codecov
       - run: chmod +x codecov
