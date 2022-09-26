@@ -20,10 +20,14 @@ class DetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 詳細画面呼び出し引数
     final argument =
         ModalRoute.of(context)!.settings.arguments as DetailScreenArgument;
+    // 画面状態
     final uiModel = ref.watch(detailUiModelProvider(argument.id));
+    // イベント処理担当
     final eventHandler = ref.read(detailEventHandlerProvider);
+    // 表示するGitHubリポジトリ
     final repo = uiModel.repo;
     return Scaffold(
       appBar: AppBar(
@@ -31,11 +35,15 @@ class DetailScreen extends HookConsumerWidget {
         shadowColor: MyColors.transparent,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: MyColors.textHE),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            // 左上「←」ボタンで前の画面に戻る
+            Navigator.of(context).pop();
+          },
         ),
       ),
       body: Column(
         children: [
+          // GitHubリポジトリの名前、フォークラベル、「いいね」ボタン
           _buildRow1(eventHandler, repo),
           // 言語ラベルと更新日
           _DetailScreenRow3(repo.language, repo.updatedAt),
@@ -73,6 +81,8 @@ class DetailScreen extends HookConsumerWidget {
   }
 
   /// 3行目のWidgetを作成する
+  ///
+  /// [description] 説明文
   Widget _buildRow3(String description) {
     return Visibility(
       visible: description.isNotEmpty,

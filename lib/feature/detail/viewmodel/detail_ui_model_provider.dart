@@ -7,8 +7,9 @@ import 'detail_ui_model.dart';
 final detailUiModelProvider = Provider.family<DetailUiModel, int>((ref, id) {
   // Repository層のGitHubリポジトリ一覧を取得する
   final repos = ref.watch(githubRepoListStateNotifierProvider);
+  // そこからidが一致するGitHubリポジトリを取得する
   final repo = repos.firstWhere((repo) => repo.id == id);
-  // Repository層のGitHubリポジトリ一覧を設定して返却する
+  // それを画面状態に設定する
   return DetailUiModel(
       progress: false,
       repo: repo,
