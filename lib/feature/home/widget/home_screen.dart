@@ -80,8 +80,11 @@ class HomeScreen extends HookConsumerWidget {
           )
         ],
       ),
-      onTap: () => Navigator.pushNamed(context, DetailScreen.routeName,
-          arguments: DetailScreenArgument(id: repo.id)),
+      onTap: () {
+        // 項目がクリックされたときの画面遷移処理
+        Navigator.pushNamed(context, DetailScreen.routeName,
+            arguments: DetailScreenArgument(id: repo.id));
+      },
     );
   }
 

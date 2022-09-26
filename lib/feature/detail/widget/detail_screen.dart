@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 詳細画面
 class DetailScreen extends HookConsumerWidget {
   const DetailScreen({super.key});
 
+  /// 画面遷移で使うNamed route
   static const routeName = '/detail';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final argment =
