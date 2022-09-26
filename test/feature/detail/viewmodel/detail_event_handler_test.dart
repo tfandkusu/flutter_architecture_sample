@@ -1,6 +1,6 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository_provider.dart';
-import 'package:flutter_architecture_sample/feature/home/viewmodel/home_event_handler_provider.dart';
+import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_event_handler_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
@@ -18,7 +18,7 @@ void main() {
       githubRepoRepositoryProvider.overrideWithValue(repository)
     ]);
     // テスト対象を取得
-    final eventHandler = container.read(homeEventHandlerProvider);
+    final eventHandler = container.read(detailEventHandlerProvider);
     // テスト対象メソッドを呼び出し
     await eventHandler.onClickFavorite("flutter_architecture_sample", true);
     verifyInOrder(
