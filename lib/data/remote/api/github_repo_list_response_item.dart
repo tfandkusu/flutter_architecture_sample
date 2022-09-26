@@ -11,6 +11,7 @@ part 'github_repo_list_response_item.g.dart';
 /// [language] プログラミング言語
 /// [htmlUrl] ブラウザで開くときのURL
 /// [fork] フォークされたリポジトリであるフラグ
+/// [defaultBranch] デフォルトブランチ(mainまたはmaster)
 @JsonSerializable()
 class GithubRepoListResponseItem {
   int id;
@@ -22,6 +23,8 @@ class GithubRepoListResponseItem {
   @JsonKey(name: "html_url")
   String htmlUrl;
   bool fork;
+  @JsonKey(name: "default_branch")
+  String defaultBranch;
 
   GithubRepoListResponseItem(
       {required this.id,
@@ -30,7 +33,8 @@ class GithubRepoListResponseItem {
       required this.updatedAt,
       this.language,
       required this.htmlUrl,
-      required this.fork});
+      required this.fork,
+      required this.defaultBranch});
 
   factory GithubRepoListResponseItem.fromJson(Map<String, dynamic> json) =>
       _$GithubRepoListResponseItemFromJson(json);
