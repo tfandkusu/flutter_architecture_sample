@@ -7,6 +7,7 @@ import 'package:flutter_architecture_sample/data/remote/markdown_remote_data_sto
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier_provder.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository_provider.dart';
+import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
@@ -85,7 +86,7 @@ void main() {
     ]);
   });
 
-  test("GithubRepoRepository#getReadme", () async {
+  test("GithubRepoRepository#getReadme README.md", () async {
     final remoteDataStore = MockMarkdownRemoteDataStore();
     // Providerが提供するインスタンスをモック実装に差し替える
     final container = ProviderContainer(overrides: [
@@ -98,6 +99,56 @@ void main() {
     verifyInOrder([
       remoteDataStore.getMarkdown(
           "groupie_sticky_header_sample", "main", "/README.md")
+    ]);
+  });
+
+  test("GithubRepoRepository#getReadme readme.md", () async {
+    final remoteDataStore = MockMarkdownRemoteDataStore();
+    // README.mdが無い
+    when(remoteDataStore.getMarkdown(
+            "groupie_sticky_header_sample", "main", "/README.md"))
+        .thenThrow(NotFoundException());
+    // Providerが提供するインスタンスをモック実装に差し替える
+    final container = ProviderContainer(overrides: [
+      markdownRemoteDataStoreProvider.overrideWithValue(remoteDataStore)
+    ]);
+    // テスト対象インスタンスを取得
+    final repository = container.read(githubRepoRepositoryProvider);
+    final repo = getGithubRepoCatalog()[2];
+    await repository.getReadme(repo);
+    verifyInOrder([
+      remoteDataStore.getMarkdown(
+          "groupie_sticky_header_sample", "main", "/README.md"),
+      // 代わりにreadme.mdがダウンロードされた
+      remoteDataStore.getMarkdown(
+          "groupie_sticky_header_sample", "main", "/readme.md")
+    ]);
+  });
+
+  test("GithubRepoRepository#getReadme notFound", () async {
+    final remoteDataStore = MockMarkdownRemoteDataStore();
+    // README.mdが無い
+    when(remoteDataStore.getMarkdown(
+            "groupie_sticky_header_sample", "main", "/README.md"))
+        .thenThrow(NotFoundException());
+    // readme.mdも無い
+    when(remoteDataStore.getMarkdown(
+            "groupie_sticky_header_sample", "main", "/readme.md"))
+        .thenThrow(NotFoundException());
+    // Providerが提供するインスタンスをモック実装に差し替える
+    final container = ProviderContainer(overrides: [
+      markdownRemoteDataStoreProvider.overrideWithValue(remoteDataStore)
+    ]);
+    // テスト対象インスタンスを取得
+    final repository = container.read(githubRepoRepositoryProvider);
+    final repo = getGithubRepoCatalog()[2];
+    expect(() async => await repository.getReadme(repo),
+        throwsA(isA<NotFoundException>()));
+    verifyInOrder([
+      remoteDataStore.getMarkdown(
+          "groupie_sticky_header_sample", "main", "/README.md"),
+      remoteDataStore.getMarkdown(
+          "groupie_sticky_header_sample", "main", "/readme.md")
     ]);
   });
 }

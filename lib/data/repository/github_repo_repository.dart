@@ -2,6 +2,7 @@ import 'package:flutter_architecture_sample/data/local/favorite_local_data_store
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store.dart';
 import 'package:flutter_architecture_sample/data/remote/markdown_remote_data_store.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier.dart';
+import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
 
 /// データ層を代表してアプリに表示するGitHubリポジトリ一覧を更新する担当
@@ -49,8 +50,23 @@ class GithubRepoRepository {
     _favoriteLocalDataStore.setFavorite(name, favorite);
   }
 
+  /// README.mdをダウンロードする
+  ///
+  /// [repo] GitHubリポジトリ
   Future<String> getReadme(GithubRepo repo) async {
-    return await _markdownRemoteDataStore.getMarkdown(
-        repo.name, repo.defaultBranch, "/README.md");
+    // README.mdが無ければreadme.mdをダウンロードする。
+    final paths = [
+      "/README.md",
+      "/readme.md",
+    ];
+    for (final path in paths) {
+      try {
+        return await _markdownRemoteDataStore.getMarkdown(
+            repo.name, repo.defaultBranch, path);
+      } on NotFoundException catch (_) {
+        //
+      }
+    }
+    throw NotFoundException();
   }
 }
