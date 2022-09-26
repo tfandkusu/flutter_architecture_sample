@@ -20,6 +20,9 @@ class MyColors {
   /// 白色
   static const white = Colors.white;
 
+  /// 透明
+  static const transparent = Colors.transparent;
+
   /// Kotlin言語
   static const kotlin = Color(0xff4caf50);
 
