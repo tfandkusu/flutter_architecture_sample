@@ -9,6 +9,8 @@ import 'package:flutter_architecture_sample/util/make_date_string.dart';
 import 'package:flutter_architecture_sample/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/widget/fork_label.dart';
 import 'package:flutter_architecture_sample/widget/language_label.dart';
+import 'package:flutter_architecture_sample/widget/progress_list_item.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -30,6 +32,12 @@ class DetailScreen extends HookConsumerWidget {
     final eventHandler = ref.read(detailEventHandlerProvider);
     // 表示するGitHubリポジトリ
     final repo = uiModel.repo;
+    // 画面を開いたときにREADME.mdファイルをダウンロードする
+    useEffect(() {
+      eventHandler.onCreate(repo);
+      return () {};
+    }, const []);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.transparent,
@@ -53,7 +61,10 @@ class DetailScreen extends HookConsumerWidget {
           // 区切り線
           const SizedBox(height: 16),
           const Divider(thickness: 1, height: 1),
-          const Expanded(child: Markdown(data: "# タイトル\n本文\n## サブタイトル"))
+          // README.md表示
+          uiModel.progress
+              ? const ProgressListItem()
+              : Expanded(child: Markdown(data: uiModel.readme))
         ],
       ),
     );
