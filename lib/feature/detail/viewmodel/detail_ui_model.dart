@@ -8,12 +8,8 @@ class DetailUiModel with _$DetailUiModel {
   /// [progress] readme読み込み中表示
   /// [repo] GitHubリポジトリ
   /// [readme] readme.mdの文字列
-  /// [networkError] ネットワークエラー
-  /// [serverError] サーバエラー
   const factory DetailUiModel(
       {required bool progress,
       required GithubRepo repo,
-      required String readme,
-      required bool networkError,
-      required bool serverError}) = _DetailUiModel;
+      required String readme}) = _DetailUiModel;
 }

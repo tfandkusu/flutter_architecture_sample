@@ -26,9 +26,7 @@ void main() {
             fork: false,
             defaultBranch: "",
             favorite: false),
-        readme: "",
-        networkError: false,
-        serverError: false);
+        readme: "");
     expect(getState(), initialState);
     // README.mdのマークダウン文字列を設定
     const readme = "# flutter_architecture_sample";

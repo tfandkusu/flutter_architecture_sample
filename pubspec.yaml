@@ -19,6 +19,7 @@ dependencies:
   shared_preferences: ^2.0.15
   sprintf: ^6.0.2
   flutter_markdown: ^0.6.12
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:

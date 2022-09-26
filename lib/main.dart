@@ -1,3 +1,5 @@
+// ignore_for_file: dead_code
+
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_dummy.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_provider.dart';
@@ -7,10 +9,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'feature/home/widget/home_screen.dart';
 
 void main() {
-  final overrides = <Override>[
-    githubRepoRemoteDataStoreProvider
-        .overrideWithValue(GitHubRepoRemoteDataStoreDummy())
-  ];
+  final overrides = true
+      ? <Override>[
+          githubRepoRemoteDataStoreProvider
+              .overrideWithValue(GitHubRepoRemoteDataStoreDummy())
+        ]
+      : <Override>[];
   runApp(ProviderScope(
     overrides: overrides,
     child: const MyApp(),

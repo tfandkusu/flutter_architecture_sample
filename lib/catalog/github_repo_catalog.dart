@@ -34,3 +34,17 @@ List<GithubRepo> getGithubRepoCatalog() {
       favorite: false);
   return [repo1, repo2, repo3];
 }
+
+/// 何も内容が無いリポジトリ情報を返却する
+GithubRepo getEmptyGithubRepo() {
+  return GithubRepo(
+      id: 0,
+      name: "",
+      description: "",
+      updatedAt: DateTime.utc(1970),
+      language: "",
+      htmlUrl: "",
+      fork: false,
+      defaultBranch: "",
+      favorite: false);
+}

@@ -13,6 +13,7 @@ import 'package:flutter_architecture_sample/widget/progress_list_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// 詳細画面
 class DetailScreen extends HookConsumerWidget {
@@ -62,9 +63,7 @@ class DetailScreen extends HookConsumerWidget {
           const SizedBox(height: 16),
           const Divider(thickness: 1, height: 1),
           // README.md表示
-          uiModel.progress
-              ? const ProgressListItem()
-              : Expanded(child: Markdown(data: uiModel.readme))
+          _Readme(uiModel.progress, uiModel.readme)
         ],
       ),
     );
@@ -137,5 +136,33 @@ class _DetailScreenRow3 extends StatelessWidget {
         const SizedBox(width: 16),
       ],
     );
+  }
+}
+
+class _Readme extends StatelessWidget {
+  final bool _progress;
+
+  final String _readme;
+
+  const _Readme(this._progress, this._readme);
+
+  @override
+  Widget build(BuildContext context) {
+    // README.md表示
+    if (_progress) {
+      return const ProgressListItem();
+    } else {
+      return Expanded(
+          child: Markdown(
+        selectable: true,
+        data: _readme,
+        onTapLink: (text, href, title) async {
+          if (href != null) {
+            await launchUrl(Uri.parse(href),
+                mode: LaunchMode.externalApplication);
+          }
+        },
+      ));
+    }
   }
 }

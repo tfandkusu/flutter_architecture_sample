@@ -13,8 +13,7 @@ class HomeUiModelStateNotifier extends StateNotifier<HomeUiModel> {
   /// 単体テスト向けに状態を設定して作成する
   ///
   /// [homeUiModel] 単体テスト向けの状態
-  HomeUiModelStateNotifier.override(HomeUiModel homeUiModel)
-      : super(homeUiModel);
+  HomeUiModelStateNotifier.override(HomeUiModel uiModel) : super(uiModel);
 
   /// リロードするときに呼ばれる
   void onReload() {
