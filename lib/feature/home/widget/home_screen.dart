@@ -5,11 +5,13 @@ import 'package:flutter_architecture_sample/feature/home/viewmodel/home_event_ha
 import 'package:flutter_architecture_sample/feature/home/viewmodel/home_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/feature/home/viewmodel/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
-import 'package:flutter_architecture_sample/resource/languages.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:flutter_architecture_sample/util/make_date_string.dart';
 import 'package:flutter_architecture_sample/widget/error_list_item.dart';
+import 'package:flutter_architecture_sample/widget/favorite_button.dart';
+import 'package:flutter_architecture_sample/widget/fork_label.dart';
+import 'package:flutter_architecture_sample/widget/language_label.dart';
 import 'package:flutter_architecture_sample/widget/progress_list_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -103,33 +105,12 @@ class HomeScreen extends HookConsumerWidget {
       ),
       // フォークラベル
       Visibility(visible: repo.fork, child: const SizedBox(width: 16)),
-      Visibility(
-          visible: repo.fork,
-          child: Container(
-            height: 28,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-            decoration: BoxDecoration(
-                color: MyColors.forkLabelBackground,
-                borderRadius: BorderRadius.circular(8)),
-            child: const Text(
-              Strings.fork,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.white),
-            ),
-          )),
+      Visibility(visible: repo.fork, child: const ForkLabel()),
       // 「いいね」ボタン
-      IconButton(
-        icon: Icon(Icons.favorite,
-            color: repo.favorite ? MyColors.likeOn : MyColors.likeOff),
-        tooltip: Strings.like,
-        onPressed: () {
-          // 「いいね」ボタンが押されたときの処理
-          eventHandler.onClickFavorite(repo.name, !repo.favorite);
-        },
-      ),
+      buildFavoriteButton(repo.favorite, () {
+        // 「いいね」ボタンが押されたときの処理
+        eventHandler.onClickFavorite(repo.name, !repo.favorite);
+      }),
     ]);
   }
 }
@@ -171,33 +152,13 @@ class _HomeRepoListItemLine3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // プログラミング言語ラベルの色
-    Color languageColor = MyColors.other;
-    if (Languages.colorMap.containsKey(_language)) {
-      languageColor = Languages.colorMap[_language] ?? MyColors.other;
-    }
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(width: 16),
         // プログラミング言語ラベル
         Visibility(
-            visible: _language.isNotEmpty,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              alignment: Alignment.center,
-              height: 28,
-              decoration: BoxDecoration(
-                  color: languageColor,
-                  borderRadius: BorderRadius.circular(14)),
-              child: Text(
-                _language,
-                style: const TextStyle(
-                    color: MyColors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-              ),
-            )),
+            visible: _language.isNotEmpty, child: LanguageLabel(_language)),
         const Spacer(),
         // 更新日
         Text(makeDateString(_updatedAt),
