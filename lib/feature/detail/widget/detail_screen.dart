@@ -9,6 +9,7 @@ import 'package:flutter_architecture_sample/util/make_date_string.dart';
 import 'package:flutter_architecture_sample/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/widget/fork_label.dart';
 import 'package:flutter_architecture_sample/widget/language_label.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 詳細画面
@@ -48,7 +49,11 @@ class DetailScreen extends HookConsumerWidget {
           // 言語ラベルと更新日
           _DetailScreenRow3(repo.language, repo.updatedAt),
           // 説明文
-          _buildRow3(repo.description)
+          _buildRow3(repo.description),
+          // 区切り線
+          const SizedBox(height: 16),
+          const Divider(thickness: 1, height: 1),
+          const Expanded(child: Markdown(data: "# タイトル\n本文\n## サブタイトル"))
         ],
       ),
     );
