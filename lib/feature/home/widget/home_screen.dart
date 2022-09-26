@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_sample/feature/detail/widget/detail_screen.dart';
+import 'package:flutter_architecture_sample/feature/detail/widget/detail_screen_argument.dart';
 import 'package:flutter_architecture_sample/feature/home/viewmodel/home_event_handler.dart';
 import 'package:flutter_architecture_sample/feature/home/viewmodel/home_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/feature/home/viewmodel/home_ui_model_provider.dart';
@@ -47,7 +49,7 @@ class HomeScreen extends HookConsumerWidget {
       for (int i = 0; i < uiModel.repos.length; ++i) {
         final repo = uiModel.repos[i];
         items.add(_buildRepoListItem(
-            eventHandler, repo, i == uiModel.repos.length - 1));
+            context, eventHandler, repo, i == uiModel.repos.length - 1));
       }
     }
     return Scaffold(
@@ -63,21 +65,23 @@ class HomeScreen extends HookConsumerWidget {
   ///
   /// [eventHandler] イベント処理担当オブジェクト
   /// [repo] GitHubリポジトリ
-  Widget _buildRepoListItem(
-      HomeEventHandler eventHandler, GithubRepo repo, bool isLast) {
-    return Column(
-      children: [
-        _buildLine1(eventHandler, repo),
-        _HomeRepoListItemDescription(repo.description),
-        _HomeRepoListItemLine3(repo.language, repo.updatedAt),
-        SizedBox(height: isLast ? 16 : 8),
-        Visibility(
-          visible: !isLast,
-          child: const Divider(
-            thickness: 1,
-          ),
-        )
-      ],
+  Widget _buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
+      GithubRepo repo, bool isLast) {
+    return InkWell(
+      child: Column(
+        children: [
+          _buildLine1(eventHandler, repo),
+          _HomeRepoListItemDescription(repo.description),
+          _HomeRepoListItemLine3(repo.language, repo.updatedAt),
+          const SizedBox(height: 16),
+          Visibility(
+            visible: !isLast,
+            child: const Divider(thickness: 1, height: 1),
+          )
+        ],
+      ),
+      onTap: () => Navigator.pushNamed(context, DetailScreen.routeName,
+          arguments: DetailScreenArgument(id: repo.id)),
     );
   }
 
