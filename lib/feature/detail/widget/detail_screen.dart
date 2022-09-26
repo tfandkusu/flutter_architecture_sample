@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model_provider.dart';
+import 'package:flutter_architecture_sample/feature/detail/widget/detail_screen_argument.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
+import 'package:flutter_architecture_sample/widget/favorite_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 詳細画面
@@ -11,8 +14,9 @@ class DetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final argment =
-    //     ModalRoute.of(context)!.settings.arguments as DetailScreenArgument;
+    final argument =
+        ModalRoute.of(context)!.settings.arguments as DetailScreenArgument;
+    final detailUiModel = ref.watch(detailUiModelProvider(argument.id));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.transparent,
@@ -22,8 +26,20 @@ class DetailScreen extends HookConsumerWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: const Center(
-        child: Text("Detail Screen"),
+      body: Column(
+        children: [
+          Row(children: [
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                detailUiModel.repo.name,
+                style: const TextStyle(color: MyColors.textHE, fontSize: 20),
+              ),
+            ),
+            const SizedBox(width: 16),
+            buildFavoriteButton(detailUiModel.repo.favorite, () => {})
+          ])
+        ],
       ),
     );
   }

@@ -10,6 +10,7 @@ import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:flutter_architecture_sample/util/make_date_string.dart';
 import 'package:flutter_architecture_sample/widget/error_list_item.dart';
+import 'package:flutter_architecture_sample/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/widget/progress_list_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -121,15 +122,10 @@ class HomeScreen extends HookConsumerWidget {
             ),
           )),
       // 「いいね」ボタン
-      IconButton(
-        icon: Icon(Icons.favorite,
-            color: repo.favorite ? MyColors.likeOn : MyColors.likeOff),
-        tooltip: Strings.like,
-        onPressed: () {
-          // 「いいね」ボタンが押されたときの処理
-          eventHandler.onClickFavorite(repo.name, !repo.favorite);
-        },
-      ),
+      buildFavoriteButton(repo.favorite, () {
+        // 「いいね」ボタンが押されたときの処理
+        eventHandler.onClickFavorite(repo.name, !repo.favorite);
+      }),
     ]);
   }
 }
