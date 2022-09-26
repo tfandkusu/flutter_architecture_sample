@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/feature/detail/widget/detail_screen_argument.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
@@ -16,7 +17,9 @@ class DetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final argument =
         ModalRoute.of(context)!.settings.arguments as DetailScreenArgument;
-    final detailUiModel = ref.watch(detailUiModelProvider(argument.id));
+    final uiModel = ref.watch(detailUiModelProvider(argument.id));
+    final eventHandler = ref.read(detailEventHandlerProvider);
+    final repo = uiModel.repo;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.transparent,
@@ -32,12 +35,13 @@ class DetailScreen extends HookConsumerWidget {
             const SizedBox(width: 16),
             Expanded(
               child: Text(
-                detailUiModel.repo.name,
+                repo.name,
                 style: const TextStyle(color: MyColors.textHE, fontSize: 20),
               ),
             ),
             const SizedBox(width: 16),
-            buildFavoriteButton(detailUiModel.repo.favorite, () => {})
+            buildFavoriteButton(repo.favorite,
+                () => eventHandler.onClickFavorite(repo.name, !repo.favorite))
           ])
         ],
       ),
