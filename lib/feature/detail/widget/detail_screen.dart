@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/feature/detail/widget/detail_screen_argument.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -9,8 +8,8 @@ class DetailScreen extends HookConsumerWidget {
   static const routeName = '/detail';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final argment =
-        ModalRoute.of(context)!.settings.arguments as DetailScreenArgument;
+    // final argment =
+    //     ModalRoute.of(context)!.settings.arguments as DetailScreenArgument;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.transparent,
