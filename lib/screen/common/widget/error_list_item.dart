@@ -11,8 +11,9 @@ Widget buildErrorListItem(ErrorUiModel error, Function() reload) {
       noError: () => throw ArgumentError(),
       network: () =>
           buildErrorListItemWithMessage(Strings.networkError, reload),
-      notFound: () => buildErrorListItemWithMessage(Strings.networkError, null),
-      server: () => buildErrorListItemWithMessage(Strings.networkError, reload),
+      notFound: () =>
+          buildErrorListItemWithMessage(Strings.notFoundError, null),
+      server: () => buildErrorListItemWithMessage(Strings.serverError, reload),
       unknown: () => buildErrorListItemWithMessage(Strings.unknownError, null));
 }
 

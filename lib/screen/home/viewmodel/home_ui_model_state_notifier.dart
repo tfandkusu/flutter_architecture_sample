@@ -24,6 +24,8 @@ class HomeUiModelStateNotifier extends StateNotifier<HomeUiModel> {
   }
 
   /// エラーの時に呼ばれる
+  ///
+  /// [error] エラー情報
   void onMyError(ErrorUiModel error) {
     state = state.copyWith(progress: false, error: error);
   }

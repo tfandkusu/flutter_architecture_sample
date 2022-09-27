@@ -114,14 +114,20 @@ class DetailScreen extends HookConsumerWidget {
     );
   }
 
+  /// README.md表示部分を作成する
+  ///
+  /// [uiModel] UI状態
+  /// [eventHandler] イベント処理担当
   Widget _buildReadme(DetailUiModel uiModel, DetailEventHandler eventHandler) {
     if (uiModel.progress) {
       // 読み込み中
       return const ProgressListItem();
     } else if (uiModel.error.hasError()) {
       if (uiModel.error == const ErrorUiModel.notFound()) {
+        // README.mdがありませんエラー
         return buildErrorListItemWithMessage(Strings.readmeNotFound, null);
       } else {
+        // ネットワークエラー等それ以外のエラー
         return buildErrorListItem(
             uiModel.error, () => eventHandler.onClickReload(uiModel.repo));
       }
