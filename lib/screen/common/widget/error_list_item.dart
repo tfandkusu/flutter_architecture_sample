@@ -23,8 +23,9 @@ Widget buildErrorListItem(ErrorUiModel error, Function() reload) {
 ///
 Widget buildErrorListItemWithMessage(String message, Function()? reload) {
   return Column(children: [
-    Padding(
+    Container(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      width: double.infinity,
       child: Text(message,
           style: const TextStyle(color: MyColors.textME, fontSize: 14)),
     ),

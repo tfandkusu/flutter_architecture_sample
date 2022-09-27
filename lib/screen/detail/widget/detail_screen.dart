@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_sample/resource/strings.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error_ext.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/error_list_item.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_event_handler.dart';
@@ -117,8 +119,12 @@ class DetailScreen extends HookConsumerWidget {
       // 読み込み中
       return const ProgressListItem();
     } else if (uiModel.error.hasError()) {
-      return buildErrorListItem(
-          uiModel.error, () => eventHandler.onClickReload(uiModel.repo));
+      if (uiModel.error == const ErrorUiModel.notFound()) {
+        return buildErrorListItemWithMessage(Strings.readmeNotFound, null);
+      } else {
+        return buildErrorListItem(
+            uiModel.error, () => eventHandler.onClickReload(uiModel.repo));
+      }
     } else {
       // README.md表示
       return Expanded(
