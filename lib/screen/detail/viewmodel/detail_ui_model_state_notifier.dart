@@ -1,5 +1,5 @@
 import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
-import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 詳細画面状態のStateNotifier
