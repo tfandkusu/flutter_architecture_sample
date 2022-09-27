@@ -139,6 +139,7 @@ class _DetailScreenRow3 extends StatelessWidget {
   }
 }
 
+/// README.md表示ウィジット
 class _Readme extends StatelessWidget {
   final bool _progress;
 
@@ -148,10 +149,11 @@ class _Readme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // README.md表示
     if (_progress) {
+      // 読み込み中
       return const ProgressListItem();
     } else {
+      // README.md表示
       return Expanded(
           child: Markdown(
         selectable: true,
