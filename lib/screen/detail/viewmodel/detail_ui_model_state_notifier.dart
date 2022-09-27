@@ -24,6 +24,11 @@ class DetailUiModelStateNotifier extends StateNotifier<DetailUiModel> {
     state = state.copyWith(progress: false, readme: readme);
   }
 
+  /// リロードが開始された時の状態変化
+  void onReload() {
+    state = state.copyWith(progress: true, error: const ErrorUiModel.noError());
+  }
+
   /// エラーが発生した
   ///
   /// [error] エラー情報

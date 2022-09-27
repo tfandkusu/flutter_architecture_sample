@@ -14,7 +14,24 @@ class DetailEventHandler {
   DetailEventHandler(this._stateNotifier, this._repository);
 
   /// 画面が開かれた時に呼ばれる
+  ///
+  /// [repo] 対象GitHubリポジトリ
   Future<void> onCreate(GithubRepo repo) async {
+    await _load(repo);
+  }
+
+  /// 再読込ボタンが押されたときに呼ばれる
+  ///
+  /// [repo] 対象GitHubリポジトリ
+  Future<void> onClickReload(GithubRepo repo) async {
+    _stateNotifier.onReload();
+    _load(repo);
+  }
+
+  /// 読み込み処理
+  ///
+  /// [repo] 対象GitHubリポジトリ
+  Future<void> _load(GithubRepo repo) async {
     try {
       final readme = await _repository.getReadme(repo);
       // 成功ケース
@@ -24,9 +41,6 @@ class DetailEventHandler {
       _stateNotifier.onMyError(mapError(e));
     }
   }
-
-  /// 再読込ボタンが押されたときに呼ばれる
-  Future<void> onClickReload() async {}
 
   /// 「いいね」ボタンが押されたときに呼ばれる
   ///

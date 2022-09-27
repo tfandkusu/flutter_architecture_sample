@@ -39,7 +39,7 @@ class HomeScreen extends HookConsumerWidget {
       items.add(const ProgressListItem());
     } else if (hasError(uiModel.error)) {
       // エラー
-      items.add(makeErrorListItem(uiModel.error, () {
+      items.add(buildErrorListItem(uiModel.error, () {
         eventHandler.onClickReload();
       }));
     } else {
