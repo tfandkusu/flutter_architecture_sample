@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error_ext.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/error_list_item.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_event_handler.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_event_handler_provider.dart';
@@ -116,7 +116,7 @@ class DetailScreen extends HookConsumerWidget {
     if (uiModel.progress) {
       // 読み込み中
       return const ProgressListItem();
-    } else if (hasError(uiModel.error)) {
+    } else if (uiModel.error.hasError()) {
       return buildErrorListItem(
           uiModel.error, () => eventHandler.onClickReload(uiModel.repo));
     } else {

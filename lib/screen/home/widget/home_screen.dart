@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error_ext.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen_argument.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_event_handler.dart';
@@ -37,7 +37,7 @@ class HomeScreen extends HookConsumerWidget {
     if (uiModel.progress) {
       // 読み込み中
       items.add(const ProgressListItem());
-    } else if (hasError(uiModel.error)) {
+    } else if (uiModel.error.hasError()) {
       // エラー
       items.add(buildErrorListItem(uiModel.error, () {
         eventHandler.onClickReload();
