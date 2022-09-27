@@ -1,5 +1,6 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/map_error.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model_state_notifier.dart';
 
 /// 詳細画面のイベント処理担当クラス
@@ -14,8 +15,14 @@ class DetailEventHandler {
 
   /// 画面が開かれた時に呼ばれる
   Future<void> onCreate(GithubRepo repo) async {
-    final readme = await _repository.getReadme(repo);
-    _stateNotifier.setReadme(readme);
+    try {
+      final readme = await _repository.getReadme(repo);
+      // 成功ケース
+      _stateNotifier.onLoadSuccess(readme);
+    } on Exception catch (e) {
+      // ネットワークエラーなどの失敗ケース
+      _stateNotifier.onMyError(mapError(e));
+    }
   }
 
   /// 再読込ボタンが押されたときに呼ばれる

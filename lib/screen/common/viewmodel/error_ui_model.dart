@@ -5,6 +5,9 @@ part 'error_ui_model.freezed.dart';
 /// エラー情報
 @freezed
 class ErrorUiModel with _$ErrorUiModel {
+  /// エラーなし
+  const factory ErrorUiModel.noError() = NoError;
+
   /// ネットワークエラー
   const factory ErrorUiModel.network() = Network;
 

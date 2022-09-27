@@ -31,7 +31,7 @@ void main() {
     // テスト対象メソッドを呼び出し
     await eventHandler.onCreate(repo);
     verifyInOrder(
-        [repository.getReadme(repo), stateNotifier.setReadme(readme)]);
+        [repository.getReadme(repo), stateNotifier.onLoadSuccess(readme)]);
   });
 
   // 「いいね」ボタンが押された

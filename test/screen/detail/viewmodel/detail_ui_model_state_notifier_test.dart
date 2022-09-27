@@ -1,3 +1,4 @@
+import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model_state_notifier_provider.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
@@ -26,11 +27,12 @@ void main() {
             fork: false,
             defaultBranch: "",
             favorite: false),
-        readme: "");
+        readme: "",
+        error: const ErrorUiModel.noError());
     expect(getState(), initialState);
-    // README.mdのマークダウン文字列を設定
+    // 読み込み成功時の状態変化を確認
     const readme = "# flutter_architecture_sample";
-    stateNotifier.setReadme(readme);
+    stateNotifier.onLoadSuccess(readme);
     expect(getState(), initialState.copyWith(progress: false, readme: readme));
   });
 }
