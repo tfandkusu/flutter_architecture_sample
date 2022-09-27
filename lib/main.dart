@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_dummy.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_provider.dart';
-import 'package:flutter_architecture_sample/feature/detail/widget/detail_screen.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
+import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen.dart';
+import 'package:flutter_architecture_sample/screen/home/widget/home_screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'feature/home/widget/home_screen.dart';
 
 void main() {
   final overrides = true

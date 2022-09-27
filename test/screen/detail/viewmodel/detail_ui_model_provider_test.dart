@@ -1,10 +1,10 @@
 import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier_provder.dart';
-import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model.dart';
-import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model_provider.dart';
-import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model_state_notifier.dart';
-import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model_state_notifier_provider.dart';
+import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model_provider.dart';
+import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model_state_notifier.dart';
+import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model_state_notifier_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

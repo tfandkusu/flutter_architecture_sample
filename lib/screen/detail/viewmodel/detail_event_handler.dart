@@ -1,6 +1,6 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
-import 'package:flutter_architecture_sample/feature/detail/viewmodel/detail_ui_model_state_notifier.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
+import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model_state_notifier.dart';
 
 /// 詳細画面のイベント処理担当クラス
 class DetailEventHandler {
