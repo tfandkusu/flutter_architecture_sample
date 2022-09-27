@@ -10,6 +10,7 @@ List<GithubRepo> getGithubRepoCatalog() {
       language: "Kotlin",
       htmlUrl: "https://github.com/tfandkusu/observe_room",
       fork: false,
+      defaultBranch: "master",
       favorite: false);
   final repo2 = GithubRepo(
       id: 343133709,
@@ -19,6 +20,7 @@ List<GithubRepo> getGithubRepoCatalog() {
       language: "Kotlin",
       htmlUrl: "https://github.com/tfandkusu/conference-app-2021",
       fork: true,
+      defaultBranch: "main",
       favorite: false);
   final repo3 = GithubRepo(
       id: 320900929,
@@ -28,6 +30,21 @@ List<GithubRepo> getGithubRepoCatalog() {
       language: "Java",
       htmlUrl: "https://github.com/tfandkusu/groupie_sticky_header_sample",
       fork: false,
+      defaultBranch: "main",
       favorite: false);
   return [repo1, repo2, repo3];
+}
+
+/// 何も内容が無いリポジトリ情報を返却する
+GithubRepo getEmptyGithubRepo() {
+  return GithubRepo(
+      id: 0,
+      name: "",
+      description: "",
+      updatedAt: DateTime.utc(1970),
+      language: "",
+      htmlUrl: "",
+      fork: false,
+      defaultBranch: "",
+      favorite: false);
 }

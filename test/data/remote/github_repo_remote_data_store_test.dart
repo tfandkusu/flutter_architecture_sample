@@ -24,6 +24,7 @@ void main() {
     expect(repo.language, 'Kotlin');
     expect(repo.htmlUrl, 'https://github.com/tfandkusu/try_graphql_android');
     expect(repo.fork, false);
+    expect(repo.defaultBranch, "main");
     expect(repo.favorite, false);
   });
 }

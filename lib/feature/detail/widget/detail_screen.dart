@@ -9,7 +9,11 @@ import 'package:flutter_architecture_sample/util/make_date_string.dart';
 import 'package:flutter_architecture_sample/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/widget/fork_label.dart';
 import 'package:flutter_architecture_sample/widget/language_label.dart';
+import 'package:flutter_architecture_sample/widget/progress_list_item.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// 詳細画面
 class DetailScreen extends HookConsumerWidget {
@@ -29,6 +33,12 @@ class DetailScreen extends HookConsumerWidget {
     final eventHandler = ref.read(detailEventHandlerProvider);
     // 表示するGitHubリポジトリ
     final repo = uiModel.repo;
+    // 画面を開いたときにREADME.mdファイルをダウンロードする
+    useEffect(() {
+      eventHandler.onCreate(repo);
+      return () {};
+    }, const []);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.transparent,
@@ -48,7 +58,12 @@ class DetailScreen extends HookConsumerWidget {
           // 言語ラベルと更新日
           _DetailScreenRow3(repo.language, repo.updatedAt),
           // 説明文
-          _buildRow3(repo.description)
+          _buildRow3(repo.description),
+          // 区切り線
+          const SizedBox(height: 16),
+          const Divider(thickness: 1, height: 1),
+          // README.md表示
+          _Readme(uiModel.progress, uiModel.readme)
         ],
       ),
     );
@@ -121,5 +136,35 @@ class _DetailScreenRow3 extends StatelessWidget {
         const SizedBox(width: 16),
       ],
     );
+  }
+}
+
+/// README.md表示ウィジット
+class _Readme extends StatelessWidget {
+  final bool _progress;
+
+  final String _readme;
+
+  const _Readme(this._progress, this._readme);
+
+  @override
+  Widget build(BuildContext context) {
+    if (_progress) {
+      // 読み込み中
+      return const ProgressListItem();
+    } else {
+      // README.md表示
+      return Expanded(
+          child: Markdown(
+        selectable: true,
+        data: _readme,
+        onTapLink: (text, href, title) async {
+          if (href != null) {
+            await launchUrl(Uri.parse(href),
+                mode: LaunchMode.externalApplication);
+          }
+        },
+      ));
+    }
   }
 }

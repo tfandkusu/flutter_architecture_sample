@@ -29,6 +29,7 @@ class GitHubRepoRemoteDataStore {
               language: responseItem.language ?? "",
               htmlUrl: responseItem.htmlUrl,
               fork: responseItem.fork,
+              defaultBranch: responseItem.defaultBranch,
               favorite: false);
           allRepos.add(repo);
         }
