@@ -1,3 +1,4 @@
+import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,52 +17,23 @@ void main() {
     expect(
         getState(),
         const HomeUiModel(
-            progress: true,
-            repos: [],
-            networkError: false,
-            serverError: false));
+            progress: true, repos: [], error: ErrorUiModel.noError()));
     // ネットワークエラー
-    stateNotifier.onNetworkError();
+    stateNotifier.onMyError(const ErrorUiModel.network());
     expect(
         getState(),
         const HomeUiModel(
-            progress: false,
-            repos: [],
-            networkError: true,
-            serverError: false));
+            progress: false, repos: [], error: ErrorUiModel.network()));
     // リロード → 読み込み成功
     stateNotifier.onReload();
     expect(
         getState(),
         const HomeUiModel(
-            progress: true,
-            repos: [],
-            networkError: false,
-            serverError: false));
+            progress: true, repos: [], error: ErrorUiModel.noError()));
     stateNotifier.onLoadSuccess();
     expect(
         getState(),
         const HomeUiModel(
-            progress: false,
-            repos: [],
-            networkError: false,
-            serverError: false));
-    // リロード → サーバーエラー
-    stateNotifier.onReload();
-    expect(
-        getState(),
-        const HomeUiModel(
-            progress: true,
-            repos: [],
-            networkError: false,
-            serverError: false));
-    stateNotifier.onServerError();
-    expect(
-        getState(),
-        const HomeUiModel(
-            progress: false,
-            repos: [],
-            networkError: false,
-            serverError: true));
+            progress: false, repos: [], error: ErrorUiModel.noError()));
   });
 }

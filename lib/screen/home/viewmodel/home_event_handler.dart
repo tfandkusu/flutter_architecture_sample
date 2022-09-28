@@ -1,6 +1,6 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/map_error.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier.dart';
-import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 
 /// ホーム画面のイベント処理担当クラス
 class HomeEventHandler {
@@ -33,12 +33,8 @@ class HomeEventHandler {
       await _repository.fetch();
       // 処理成功
       _stateNotifier.onLoadSuccess();
-    } on NetworkErrorException catch (_) {
-      // ネットワークエラー
-      _stateNotifier.onNetworkError();
-    } on ServerErrorException catch (_) {
-      // サーバエラー
-      _stateNotifier.onServerError();
+    } on Exception catch (e) {
+      _stateNotifier.onMyError(mapError(e));
     }
   }
 

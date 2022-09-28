@@ -1,5 +1,6 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier_provder.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier.dart';
@@ -15,10 +16,7 @@ void main() {
     final container = ProviderContainer(overrides: [
       homeUiModelStateNotifierProvider.overrideWithValue(
           HomeUiModelStateNotifier.override(const HomeUiModel(
-              progress: false,
-              repos: [],
-              networkError: false,
-              serverError: false))),
+              progress: false, repos: [], error: ErrorUiModel.noError()))),
       githubRepoListStateNotifierProvider
           .overrideWithValue(GithubRepoListStateNotifier.override(repos))
     ]);
@@ -30,7 +28,6 @@ void main() {
         HomeUiModel(
             progress: false,
             repos: repos,
-            networkError: false,
-            serverError: false));
+            error: const ErrorUiModel.noError()));
   });
 }

@@ -9,7 +9,7 @@ import 'package:flutter_architecture_sample/screen/home/widget/home_screen.dart'
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  final overrides = true
+  final overrides = false
       ? <Override>[
           githubRepoRemoteDataStoreProvider
               .overrideWithValue(GitHubRepoRemoteDataStoreDummy())

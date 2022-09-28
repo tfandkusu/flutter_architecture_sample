@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_sample/resource/strings.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error_ext.dart';
+import 'package:flutter_architecture_sample/screen/common/widget/error_list_item.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_event_handler.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_event_handler_provider.dart';
+import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/detail/viewmodel/detail_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen_argument.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
@@ -63,7 +68,7 @@ class DetailScreen extends HookConsumerWidget {
           const SizedBox(height: 16),
           const Divider(thickness: 1, height: 1),
           // README.md表示
-          _Readme(uiModel.progress, uiModel.readme)
+          _buildReadme(uiModel, eventHandler)
         ],
       ),
     );
@@ -108,6 +113,39 @@ class DetailScreen extends HookConsumerWidget {
               style: const TextStyle(color: MyColors.textME, fontSize: 14))),
     );
   }
+
+  /// README.md表示部分を作成する
+  ///
+  /// [uiModel] UI状態
+  /// [eventHandler] イベント処理担当
+  Widget _buildReadme(DetailUiModel uiModel, DetailEventHandler eventHandler) {
+    if (uiModel.progress) {
+      // 読み込み中
+      return const ProgressListItem();
+    } else if (uiModel.error.hasError()) {
+      if (uiModel.error == const ErrorUiModel.notFound()) {
+        // README.mdがありませんエラー
+        return buildErrorListItemWithMessage(Strings.readmeNotFound, null);
+      } else {
+        // ネットワークエラー等それ以外のエラー
+        return buildErrorListItem(
+            uiModel.error, () => eventHandler.onClickReload(uiModel.repo));
+      }
+    } else {
+      // README.md表示
+      return Expanded(
+          child: Markdown(
+        selectable: true,
+        data: uiModel.readme,
+        onTapLink: (text, href, title) async {
+          if (href != null) {
+            await launchUrl(Uri.parse(href),
+                mode: LaunchMode.externalApplication);
+          }
+        },
+      ));
+    }
+  }
 }
 
 /// プログラミング言語と更新日Widget
@@ -136,35 +174,5 @@ class _DetailScreenRow3 extends StatelessWidget {
         const SizedBox(width: 16),
       ],
     );
-  }
-}
-
-/// README.md表示ウィジット
-class _Readme extends StatelessWidget {
-  final bool _progress;
-
-  final String _readme;
-
-  const _Readme(this._progress, this._readme);
-
-  @override
-  Widget build(BuildContext context) {
-    if (_progress) {
-      // 読み込み中
-      return const ProgressListItem();
-    } else {
-      // README.md表示
-      return Expanded(
-          child: Markdown(
-        selectable: true,
-        data: _readme,
-        onTapLink: (text, href, title) async {
-          if (href != null) {
-            await launchUrl(Uri.parse(href),
-                mode: LaunchMode.externalApplication);
-          }
-        },
-      ));
-    }
   }
 }
