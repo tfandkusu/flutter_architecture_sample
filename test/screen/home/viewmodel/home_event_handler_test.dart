@@ -51,26 +51,6 @@ void main() {
       stateNotifier.onLoadSuccess()
     ]);
   });
-  // 画面を開いたときの処理(読み込み処理)がネットワークエラーのケース
-  test("HomeEventHandler#onCreate networkError", () async {
-    // 依存するインスタンスのモック実装を作成する
-    final repository = MockGithubRepoRepository();
-    when(repository.fetch()).thenThrow(NetworkErrorException());
-    final stateNotifier = MockHomeUiModelStateNotifier();
-    // Providerが提供するインスタンスをモック実装に差し替える
-    final container = ProviderContainer(overrides: [
-      githubRepoRepositoryProvider.overrideWithValue(repository),
-      homeUiModelStateNotifierProvider.overrideWithValue(stateNotifier)
-    ]);
-    // テスト対象を取得
-    final eventHandler = container.read(homeEventHandlerProvider);
-    // テスト対象メソッドを呼び出し
-    await eventHandler.onCreate();
-    verifyInOrder([
-      repository.fetch(),
-      stateNotifier.onMyError(const ErrorUiModel.network())
-    ]);
-  });
   // 「いいね」ボタンが押された
   test("HomeEventHandler#onClickFavorite", () async {
     // 依存するインスタンスのモック実装を作成する
