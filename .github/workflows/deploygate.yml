@@ -2,12 +2,7 @@ name: deploygate
 on:
   push:
     branches:
-      - staging
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
+      - main
 jobs:
   deploygate:
     runs-on: ubuntu-latest
