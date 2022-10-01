@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// GitHubリポジトリに対する「いいね」をアプリローカルから読み書きする担当クラス
-class FavoriteLocalDataStore {
+class FavoriteLocalDataSource {
   /// SharedPreferencesの保存キー
   static const _keyFavoriteGitHubRepoNameList = "favoriteGitHubRepoNameList";
 
