@@ -1,0 +1,38 @@
+name: deploygate
+on:
+  push:
+    branches:
+      - staging
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  deploygate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - uses: asdf-vm/actions/install@v1
+      - uses: gradle/gradle-build-action@v2
+      - run: flutter pub get
+      # Save key store file.
+      - run: echo -n ${{ secrets.FAS_KEY_STORE_FILE }} | base64 -d > ~/fas.jks
+      # Save key.properties file.
+      - run: echo -n ${{ secrets.FAS_KEY_PROPERTIES_FILE }} | base64 -d > android/key.properties
+      # Add storeFile attribute to key.properties
+      - run: echo storeFile=$HOME/fas.jks >> android/key.properties
+      # Build release build
+      - run: flutter build apk
+      # Upload to DeployGate
+      - working-directory: ./android
+        run: ./gradlew uploadDeployGateRelease
+        env:
+          DEPLOYGATE_APP_OWNER_NAME: ${{ secrets.DEPLOYGATE_APP_OWNER_NAME }}
+          DEPLOYGATE_API_TOKEN: ${{ secrets.DEPLOYGATE_API_TOKEN }}
+          DEPLOYGATE_DISTRIBUTION_KEY: ${{ secrets.DEPLOYGATE_DISTRIBUTION_KEY }}
