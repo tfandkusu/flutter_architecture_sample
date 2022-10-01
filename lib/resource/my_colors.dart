@@ -38,6 +38,9 @@ class MyColors {
   /// Java言語
   static const java = Color(0xfff44336);
 
+  /// Swift言語
+  static const swift = Color(0xfffb8c00);
+
   /// HTML
   static const html = Color(0xffff5722);
 
