@@ -4,7 +4,7 @@ import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 /// APIからマークダウンテキストをダウンロードする担当
 ///
 /// [client] Retrofit for Dartで作成したAPIクライアント
-class MarkdownRemoteDataStore {
+class MarkdownRemoteDataSource {
   final _dio = Dio();
 
   /// マークダウンファイルをダウンロードする

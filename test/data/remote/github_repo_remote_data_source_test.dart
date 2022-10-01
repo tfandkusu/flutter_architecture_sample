@@ -1,14 +1,14 @@
-import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_store_provider.dart';
+import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_source_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// GithubRepoRemoteDataStoreのテスト
+/// GithubRepoRemoteDataSourceのテスト
 void main() {
-  test("GithubRepoRemoteDataStore", () async {
+  test("GithubRepoRemoteDataSource", () async {
     final container = ProviderContainer();
-    final remoteDataStore = container.read(githubRepoRemoteDataStoreProvider);
+    final remoteDataSource = container.read(githubRepoRemoteDataSourceProvider);
     // 実際のAPIにアクセスする
-    final repoList = await remoteDataStore.getGitHubRepoList();
+    final repoList = await remoteDataSource.getGitHubRepoList();
     // GitHub側の変化を想定したチェック項目にする
     // 31件以上リポジトリが取れる
     expect(repoList.length, greaterThan(30));
