@@ -1,0 +1,43 @@
+name: deploygate
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploygate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # Java環境のセットアップ
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      # Flutter環境のセットアップ
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.2'
+          channel: 'stable'
+          cache: true
+      # Gradleのキャッシュ
+      - uses: gradle/gradle-build-action@v2
+      # 依存ライブラリのダウンロード
+      - run: flutter pub get
+      # freezedのためにbuild_runnerの実行
+      - run: flutter pub run build_runner build
+      # Save key store file.
+      - run: echo -n ${{ secrets.FAS_KEY_STORE_FILE }} | base64 -d > ~/fas.jks
+      # Save key.properties file.
+      - run: echo -n ${{ secrets.FAS_KEY_PROPERTIES_FILE }} | base64 -d > android/key.properties
+      # Add storeFile attribute to key.properties
+      - run: echo storeFile=$HOME/fas.jks >> android/key.properties
+      # Build release build
+      - run: flutter build apk
+      # Upload to DeployGate
+      - working-directory: ./android
+        run: ./gradlew uploadDeployGateRelease
+        env:
+          DEPLOYGATE_APP_OWNER_NAME: ${{ secrets.DEPLOYGATE_APP_OWNER_NAME }}
+          DEPLOYGATE_API_TOKEN: ${{ secrets.DEPLOYGATE_API_TOKEN }}
+          DEPLOYGATE_DISTRIBUTION_KEY: ${{ secrets.DEPLOYGATE_DISTRIBUTION_KEY }}
