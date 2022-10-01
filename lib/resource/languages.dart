@@ -8,6 +8,7 @@ class Languages {
     "Dart": MyColors.dart,
     "Python": MyColors.python,
     "Java": MyColors.java,
+    "Swift": MyColors.swift,
     "HTML": MyColors.html
   };
 }
