@@ -1,10 +1,8 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository_provider.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier.dart';
 import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier_provider.dart';
-import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
@@ -49,26 +47,6 @@ void main() {
       stateNotifier.onReload(),
       repository.fetch(),
       stateNotifier.onLoadSuccess()
-    ]);
-  });
-  // 画面を開いたときの処理(読み込み処理)がネットワークエラーのケース
-  test("HomeEventHandler#onCreate networkError", () async {
-    // 依存するインスタンスのモック実装を作成する
-    final repository = MockGithubRepoRepository();
-    when(repository.fetch()).thenThrow(NetworkErrorException());
-    final stateNotifier = MockHomeUiModelStateNotifier();
-    // Providerが提供するインスタンスをモック実装に差し替える
-    final container = ProviderContainer(overrides: [
-      githubRepoRepositoryProvider.overrideWithValue(repository),
-      homeUiModelStateNotifierProvider.overrideWithValue(stateNotifier)
-    ]);
-    // テスト対象を取得
-    final eventHandler = container.read(homeEventHandlerProvider);
-    // テスト対象メソッドを呼び出し
-    await eventHandler.onCreate();
-    verifyInOrder([
-      repository.fetch(),
-      stateNotifier.onMyError(const ErrorUiModel.network())
     ]);
   });
   // 「いいね」ボタンが押された

@@ -34,6 +34,7 @@ class HomeEventHandler {
       // 処理成功
       _stateNotifier.onLoadSuccess();
     } on Exception catch (e) {
+      // 処理失敗
       _stateNotifier.onMyError(mapError(e));
     }
   }
