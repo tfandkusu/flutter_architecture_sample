@@ -19,7 +19,7 @@ import 'github_repo_repository_test.mocks.dart';
 
 // モック実装をMockitoに作らせる設定
 @GenerateNiceMocks([
-  MockSpec<GitHubRepoRemoteDataSource>(),
+  MockSpec<GithubRepoRemoteDataSource>(),
   MockSpec<MarkdownRemoteDataSource>(),
   MockSpec<FavoriteLocalDataSource>(),
   MockSpec<GithubRepoListStateNotifier>()
@@ -27,7 +27,7 @@ import 'github_repo_repository_test.mocks.dart';
 void main() {
   test("GithubRepoRepository#fetch", () async {
     // 依存するインスタンスのモック実装を作成する
-    final remoteDataSource = MockGitHubRepoRemoteDataSource();
+    final remoteDataSource = MockGithubRepoRemoteDataSource();
     final localDataSource = MockFavoriteLocalDataSource();
     final stateNotifier = MockGithubRepoListStateNotifier();
     // GitHubRepoRemoteDataSourceのモックレスポンスを設定する
@@ -66,7 +66,7 @@ void main() {
 
   test("GithubRepoRepository#favorite", () async {
     // 依存するインスタンスのモック実装を作成する
-    final remoteDataSource = MockGitHubRepoRemoteDataSource();
+    final remoteDataSource = MockGithubRepoRemoteDataSource();
     final localDataSource = MockFavoriteLocalDataSource();
     final stateNotifier = MockGithubRepoListStateNotifier();
     // Providerが提供するインスタンスをモック実装に差し替える

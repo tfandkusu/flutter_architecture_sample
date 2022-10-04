@@ -8,7 +8,7 @@ import 'package:flutter_architecture_sample/model/github_repo.dart';
 /// データ層を代表してアプリに表示するGitHubリポジトリ一覧を更新する担当
 class GithubRepoRepository {
   /// APIからGitHubの情報を取ってくる担当
-  final GitHubRepoRemoteDataSource _remoteDataSource;
+  final GithubRepoRemoteDataSource _remoteDataSource;
 
   /// GitHubからマークダウンテキストを取ってくる担当
   final MarkdownRemoteDataSource _markdownRemoteDataSource;

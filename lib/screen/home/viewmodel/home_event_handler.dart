@@ -7,7 +7,7 @@ class HomeEventHandler {
   /// ホーム画面の状態を更新する担当
   final HomeUiModelStateNotifier _stateNotifier;
 
-  /// Repository層を操作する担当
+  /// Repositoryを操作する担当
   final GithubRepoRepository _repository;
 
   HomeEventHandler(this._stateNotifier, this._repository);

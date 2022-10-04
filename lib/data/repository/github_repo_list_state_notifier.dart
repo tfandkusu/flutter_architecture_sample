@@ -7,7 +7,7 @@ class GithubRepoListStateNotifier extends StateNotifier<List<GithubRepo>> {
 
   /// 単体テスト向けに状態を設定して作成する
   ///
-  /// [homeUiModel] 単体テスト向けの状態
+  /// [list] 単体テスト向けの状態
   GithubRepoListStateNotifier.override(List<GithubRepo> list) : super(list);
 
   /// 読み込んだGithubリポジトリ一覧を設定する

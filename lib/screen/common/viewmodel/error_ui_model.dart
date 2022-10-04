@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'error_ui_model.freezed.dart';
 
-/// エラー情報
+/// エラー状態
 @freezed
 class ErrorUiModel with _$ErrorUiModel {
   /// エラーなし

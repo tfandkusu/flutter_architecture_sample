@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ホーム画面の状態を提供するProvider
 final homeUiModelProvider = Provider((ref) {
-  // Repository層のGitHubリポジトリ一覧を取得する
+  // データレイヤのGitHubリポジトリ一覧を取得する
   final repos = ref.watch(githubRepoListStateNotifierProvider);
   // 現在のユーザ操作によるホーム画面の状態を取得する
   final homeUiModel = ref.watch(homeUiModelStateNotifierProvider);
