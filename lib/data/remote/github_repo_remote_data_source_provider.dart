@@ -5,5 +5,5 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// シングルトンなGithubRepoRemoteDataSourceのインスタンスを取得する
 final githubRepoRemoteDataSourceProvider = Provider((ref) {
   final client = ref.read(githubApiClientProvider);
-  return GitHubRepoRemoteDataSource(client);
+  return GithubRepoRemoteDataSource(client);
 });

@@ -6,10 +6,10 @@ import 'package:flutter_architecture_sample/model/github_repo.dart';
 /// APIからGitHubの情報を取ってくる担当
 ///
 /// [client] Retrofit for Dartで作成したAPIクライアント
-class GitHubRepoRemoteDataSource {
+class GithubRepoRemoteDataSource {
   final GithubApiClient _client;
 
-  GitHubRepoRemoteDataSource(this._client);
+  GithubRepoRemoteDataSource(this._client);
 
   /// ユーザtfandkusuの公開GitHubリポジトリ一覧を取得する
   Future<List<GithubRepo>> getGitHubRepoList() async {
