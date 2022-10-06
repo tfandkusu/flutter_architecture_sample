@@ -12,7 +12,7 @@ class GithubRepoRemoteDataSource {
   GithubRepoRemoteDataSource(this._client);
 
   /// ユーザtfandkusuの公開GitHubリポジトリ一覧を取得する
-  Future<List<GithubRepo>> getGitHubRepoList() async {
+  Future<List<GithubRepo>> getGithubRepoList() async {
     try {
       // 全ページ取得してJsonをパースした結果のインスタンスから
       // Repository層用のデータクラスのインスタンスに変換する

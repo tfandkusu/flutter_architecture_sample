@@ -8,7 +8,7 @@ void main() {
     final container = ProviderContainer();
     final remoteDataSource = container.read(githubRepoRemoteDataSourceProvider);
     // 実際のAPIにアクセスする
-    final repoList = await remoteDataSource.getGitHubRepoList();
+    final repoList = await remoteDataSource.getGithubRepoList();
     // GitHub側の変化を想定したチェック項目にする
     // 31件以上リポジトリが取れる
     expect(repoList.length, greaterThan(30));
