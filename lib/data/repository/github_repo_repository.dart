@@ -25,7 +25,7 @@ class GithubRepoRepository {
   /// Githubリポジトリ一覧を読み込んでアプリ内に保持する
   Future<void> fetch() async {
     // GitHubリポジトリ一覧をAPIから取得する
-    final repoList = await _remoteDataSource.getGitHubRepoList();
+    final repoList = await _remoteDataSource.getGithubRepoList();
     // ソートする
     repoList.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
     // 「いいね」を付けたリポジトリ名一覧をローカルから読み込む

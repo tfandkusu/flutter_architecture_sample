@@ -6,7 +6,7 @@ import 'github_repo_remote_data_source.dart';
 /// APIからGitHubの情報を取ってくる担当の開発中のダミー実装
 class GitHubRepoRemoteDataSourceDummy implements GithubRepoRemoteDataSource {
   @override
-  Future<List<GithubRepo>> getGitHubRepoList() async {
+  Future<List<GithubRepo>> getGithubRepoList() async {
     // プログレス表示の確認のために2秒待つ
     await Future.delayed(const Duration(seconds: 2));
     // throw NetworkErrorException();

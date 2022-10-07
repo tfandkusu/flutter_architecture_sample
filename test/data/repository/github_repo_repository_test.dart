@@ -34,7 +34,7 @@ void main() {
     final repoList = getGithubRepoCatalog();
     // 更新日降順にソートする件のテストのために逆順にする
     final repoListForSortTest = repoList.reversed.toList();
-    when(remoteDataSource.getGitHubRepoList())
+    when(remoteDataSource.getGithubRepoList())
         .thenAnswer((_) async => repoListForSortTest);
     // FavoriteLocalDataSourceのモックレスポンスを作成する
     when(localDataSource.getFavoriteRepoNameSet())
@@ -58,7 +58,7 @@ void main() {
       }
     }).toList();
     verifyInOrder([
-      remoteDataSource.getGitHubRepoList(),
+      remoteDataSource.getGithubRepoList(),
       localDataSource.getFavoriteRepoNameSet(),
       stateNotifier.setList(repoListWithFavorite)
     ]);
