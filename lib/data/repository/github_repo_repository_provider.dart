@@ -9,8 +9,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final githubRepoRepositoryProvider = Provider((ref) {
   final remoteDataSource = ref.read(githubRepoRemoteDataSourceProvider);
   final markdownRemoteDataSource = ref.read(markdownRemoteDataSourceProvider);
-  final favoriteLocalDataSource = ref.read(favoriteLocalDataSourceProvider);
+  final localDataSource = ref.read(favoriteLocalDataSourceProvider);
   final stateNotifier = ref.read(githubRepoListStateNotifierProvider.notifier);
   return GithubRepoRepository(remoteDataSource, markdownRemoteDataSource,
-      favoriteLocalDataSource, stateNotifier);
+      localDataSource, stateNotifier);
 });

@@ -14,13 +14,13 @@ class GithubRepoRepository {
   final MarkdownRemoteDataSource _markdownRemoteDataSource;
 
   /// GitHubリポジトリに対する「いいね」をアプリローカルから読み書きする担当
-  final FavoriteLocalDataSource _favoriteLocalDataSource;
+  final FavoriteLocalDataSource _localDataSource;
 
   /// Githubリポジトリ一覧をUI層に通知するために保持する担当
   final GithubRepoListStateNotifier _stateNotifier;
 
   GithubRepoRepository(this._remoteDataSource, this._markdownRemoteDataSource,
-      this._favoriteLocalDataSource, this._stateNotifier);
+      this._localDataSource, this._stateNotifier);
 
   /// Githubリポジトリ一覧を読み込んでアプリ内に保持する
   Future<void> fetch() async {
@@ -29,8 +29,7 @@ class GithubRepoRepository {
     // ソートする
     repoList.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
     // 「いいね」を付けたリポジトリ名一覧をローカルから読み込む
-    final favoriteRepoNameSet =
-        await _favoriteLocalDataSource.getFavoriteRepoNameSet();
+    final favoriteRepoNameSet = await _localDataSource.getFavoriteRepoNameSet();
     // 両者を合成する
     final githubRepoListWithFavorite = repoList
         .map((repo) =>
@@ -47,7 +46,7 @@ class GithubRepoRepository {
     // UI層を更新するためにStateNotifierに設定する
     _stateNotifier.setFavorite(name, favorite);
     // アプリローカルのデータを更新する
-    _favoriteLocalDataSource.setFavorite(name, favorite);
+    _localDataSource.setFavorite(name, favorite);
   }
 
   /// README.mdをダウンロードする
