@@ -1,10 +1,10 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository_provider.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_event_handler_provider.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier_provider.dart';
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
+import 'package:flutter_architecture_sample/screen/common/stateholder/error_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_event_handler_provider.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model_state_notifier.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model_state_notifier_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';

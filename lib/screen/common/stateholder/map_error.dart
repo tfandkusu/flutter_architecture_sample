@@ -1,5 +1,5 @@
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
+import 'error_ui_model.dart';
 
 /// 例外をErrorUiModelに変換する
 ErrorUiModel mapError(Exception e) {
