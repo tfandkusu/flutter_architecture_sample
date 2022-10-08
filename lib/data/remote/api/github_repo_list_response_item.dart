@@ -9,7 +9,6 @@ part 'github_repo_list_response_item.g.dart';
 /// [description] 説明文
 /// [updatedAt] 更新日時
 /// [language] プログラミング言語
-/// [htmlUrl] ブラウザで開くときのURL
 /// [fork] フォークされたリポジトリであるフラグ
 /// [defaultBranch] デフォルトブランチ(mainまたはmaster)
 @JsonSerializable()
@@ -20,8 +19,6 @@ class GithubRepoListResponseItem {
   @JsonKey(name: "updated_at")
   String updatedAt;
   String? language;
-  @JsonKey(name: "html_url")
-  String htmlUrl;
   bool fork;
   @JsonKey(name: "default_branch")
   String defaultBranch;
@@ -32,7 +29,6 @@ class GithubRepoListResponseItem {
       this.description,
       required this.updatedAt,
       this.language,
-      required this.htmlUrl,
       required this.fork,
       required this.defaultBranch});
 

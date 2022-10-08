@@ -8,7 +8,6 @@ List<GithubRepo> getGithubRepoCatalog() {
           "and reflect the changes in the RecyclerView.",
       updatedAt: DateTime.parse("2021-10-29T00:15:46Z"),
       language: "Kotlin",
-      htmlUrl: "https://github.com/tfandkusu/observe_room",
       fork: false,
       defaultBranch: "master",
       favorite: false);
@@ -18,7 +17,6 @@ List<GithubRepo> getGithubRepoCatalog() {
       description: "The Official App for DroidKaigi 2021",
       updatedAt: DateTime.parse("2021-09-21T16:56:04Z"),
       language: "Kotlin",
-      htmlUrl: "https://github.com/tfandkusu/conference-app-2021",
       fork: true,
       defaultBranch: "main",
       favorite: false);
@@ -28,7 +26,6 @@ List<GithubRepo> getGithubRepoCatalog() {
       description: "Sample app for sticky header on the groupie",
       updatedAt: DateTime.parse("2021-01-19T19:46:27Z"),
       language: "Java",
-      htmlUrl: "https://github.com/tfandkusu/groupie_sticky_header_sample",
       fork: false,
       defaultBranch: "main",
       favorite: false);
@@ -43,7 +40,6 @@ GithubRepo getEmptyGithubRepo() {
       description: "",
       updatedAt: DateTime.utc(1970),
       language: "",
-      htmlUrl: "",
       fork: false,
       defaultBranch: "",
       favorite: false);

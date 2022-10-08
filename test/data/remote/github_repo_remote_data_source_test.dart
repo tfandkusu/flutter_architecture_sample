@@ -22,7 +22,6 @@ void main() {
     expect(repo.updatedAt,
         greaterThanOrEqualTo(DateTime.parse('2022-01-10T19:33:46Z')));
     expect(repo.language, 'Kotlin');
-    expect(repo.htmlUrl, 'https://github.com/tfandkusu/try_graphql_android');
     expect(repo.fork, false);
     expect(repo.defaultBranch, "main");
     expect(repo.favorite, false);
