@@ -1,5 +1,5 @@
-import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/common/stateholder/error_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// ホーム画面状態のStateNotifier

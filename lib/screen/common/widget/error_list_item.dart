@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/common/stateholder/error_ui_model.dart';
 
 /// エラーの時のWidgetを作成する
 /// [error] エラーの状態

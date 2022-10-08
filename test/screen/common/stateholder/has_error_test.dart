@@ -1,5 +1,5 @@
-import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error_ext.dart';
+import 'package:flutter_architecture_sample/screen/common/stateholder/error_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/common/stateholder/has_error_ext.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

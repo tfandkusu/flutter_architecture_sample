@@ -1,5 +1,5 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository_provider.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_state_notifier_provider.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model_state_notifier_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'home_event_handler.dart';
 

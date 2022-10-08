@@ -1,6 +1,6 @@
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_event_handler.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_event_handler_provider.dart';
 import 'package:flutter_architecture_sample/main.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_event_handler.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_event_handler_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';

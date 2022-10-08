@@ -1,5 +1,5 @@
 import 'package:flutter_architecture_sample/model/github_repo.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/error_ui_model.dart';
+import 'package:flutter_architecture_sample/screen/common/stateholder/error_ui_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'detail_ui_model.freezed.dart';
 

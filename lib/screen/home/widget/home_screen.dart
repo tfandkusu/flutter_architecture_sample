@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/screen/common/viewmodel/has_error_ext.dart';
+import 'package:flutter_architecture_sample/screen/common/stateholder/has_error_ext.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen_argument.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_event_handler.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_event_handler_provider.dart';
-import 'package:flutter_architecture_sample/screen/home/viewmodel/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_event_handler.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_event_handler_provider.dart';
+import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model_provider.dart';
 import 'package:flutter_architecture_sample/util/make_date_string.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/error_list_item.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/favorite_button.dart';
