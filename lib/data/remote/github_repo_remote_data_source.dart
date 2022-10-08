@@ -27,7 +27,6 @@ class GithubRepoRemoteDataSource {
               description: responseItem.description ?? "",
               updatedAt: DateTime.parse(responseItem.updatedAt),
               language: responseItem.language ?? "",
-              htmlUrl: responseItem.htmlUrl,
               fork: responseItem.fork,
               defaultBranch: responseItem.defaultBranch,
               favorite: false);

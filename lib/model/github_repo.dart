@@ -11,7 +11,6 @@ class GithubRepo with _$GithubRepo {
   /// [description] 説明文
   /// [updatedAt] 更新日時
   /// [language] プログラミング言語
-  /// [htmlUrl] ブラウザで開くときのURL
   /// [fork] フォークされたリポジトリであるフラグ
   /// [defaultBranch] デフォルトブランチ(mainまたはmaster)
   /// [favorite] いいねを付けたフラグ
@@ -21,7 +20,6 @@ class GithubRepo with _$GithubRepo {
       required String description,
       required DateTime updatedAt,
       required String language,
-      required String htmlUrl,
       required bool fork,
       required String defaultBranch,
       required bool favorite}) = _GithubRepo;
