@@ -32,31 +32,31 @@ class HomeScreen extends HookConsumerWidget {
       eventHandler.onCreate();
       return () {};
     }, const [] /* 1回だけ実行する */);
-    // ListViewに表示するWidgetリスト
-    final items = <Widget>[];
-    if (uiModel.progress) {
-      // 読み込み中
-      items.add(const ProgressListItem());
-    } else if (uiModel.error.hasError()) {
-      // エラー
-      items.add(buildErrorListItem(uiModel.error, () {
-        eventHandler.onClickReload();
-      }));
-    } else {
-      // 読み込み成功
-      for (int i = 0; i < uiModel.repos.length; ++i) {
-        final repo = uiModel.repos[i];
-        items.add(_buildRepoListItem(
-            context, eventHandler, repo, i == uiModel.repos.length - 1));
-      }
+    // ListViewの要素数
+    int itemCount = 1;
+    if (!uiModel.progress && !uiModel.error.hasError()) {
+      itemCount = uiModel.repos.length;
     }
+    // ListView本体
+    final listView = ListView.builder(
+        itemCount: itemCount,
+        itemBuilder: (context, index) {
+          if (uiModel.progress) {
+            return const ProgressListItem();
+          } else if (uiModel.error.hasError()) {
+            return buildErrorListItem(uiModel.error, () {
+              eventHandler.onClickReload();
+            });
+          } else {
+            return _buildRepoListItem(context, eventHandler,
+                uiModel.repos[index], index == uiModel.repos.length - 1);
+          }
+        });
     return Scaffold(
         appBar: AppBar(
           title: const Text(Strings.homeTitle),
         ),
-        body: ListView(
-          children: items,
-        ));
+        body: listView);
   }
 
   /// GitHubリポジトリ1個分のListViewの項目Widgetを作成する
