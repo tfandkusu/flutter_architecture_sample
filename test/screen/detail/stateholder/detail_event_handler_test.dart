@@ -1,4 +1,3 @@
-import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository_provider.dart';
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
@@ -21,9 +20,11 @@ void main() {
     // 依存するインスタンスのモック実装を作成する
     final stateNotifier = MockDetailUiModelStateNotifier();
     final repository = MockGithubRepoRepository();
-    final repo = getGithubRepoCatalog()[0];
+    const name = "some_repository";
+    const defaultBranch = "main";
     const readme = "# some_repository";
-    when(repository.getReadme(repo)).thenAnswer((_) => Future.value(readme));
+    when(repository.getReadme(name, defaultBranch))
+        .thenAnswer((_) => Future.value(readme));
     final container = ProviderContainer(overrides: [
       detailUiModelStateNotifierProvider.overrideWithValue(stateNotifier),
       githubRepoRepositoryProvider.overrideWithValue(repository)
@@ -31,19 +32,23 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(detailEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.onCreate(repo);
-    verifyInOrder(
-        [repository.getReadme(repo), stateNotifier.onLoadSuccess(readme)]);
+    await eventHandler.onCreate(name, defaultBranch);
+    verifyInOrder([
+      repository.getReadme(name, defaultBranch),
+      stateNotifier.onLoadSuccess(readme)
+    ]);
   });
 
   // 再読込ボタンが押された
   test("DetailEventHandler#onClickReload", () async {
+    const name = "some_repository";
+    const defaultBranch = "main";
     // 依存するインスタンスのモック実装を作成する
     final stateNotifier = MockDetailUiModelStateNotifier();
     final repository = MockGithubRepoRepository();
-    final repo = getGithubRepoCatalog()[0];
     const readme = "# some_repository";
-    when(repository.getReadme(repo)).thenAnswer((_) => Future.value(readme));
+    when(repository.getReadme(name, defaultBranch))
+        .thenAnswer((_) => Future.value(readme));
     final container = ProviderContainer(overrides: [
       detailUiModelStateNotifierProvider.overrideWithValue(stateNotifier),
       githubRepoRepositoryProvider.overrideWithValue(repository)
@@ -51,21 +56,23 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(detailEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.onClickReload(repo);
+    await eventHandler.onClickReload(name, defaultBranch);
     verifyInOrder([
       stateNotifier.onReload(),
-      repository.getReadme(repo),
+      repository.getReadme(name, defaultBranch),
       stateNotifier.onLoadSuccess(readme)
     ]);
   });
 
   // エラーが発生
   test("DetailEventHandler#onCreate error", () async {
+    const name = "some_repository";
+    const defaultBranch = "main";
     // 依存するインスタンスのモック実装を作成する
     final stateNotifier = MockDetailUiModelStateNotifier();
     final repository = MockGithubRepoRepository();
-    final repo = getGithubRepoCatalog()[0];
-    when(repository.getReadme(repo)).thenThrow(NetworkErrorException());
+    when(repository.getReadme(name, defaultBranch))
+        .thenThrow(NetworkErrorException());
     final container = ProviderContainer(overrides: [
       detailUiModelStateNotifierProvider.overrideWithValue(stateNotifier),
       githubRepoRepositoryProvider.overrideWithValue(repository)
@@ -73,9 +80,9 @@ void main() {
     // テスト対象を取得
     final eventHandler = container.read(detailEventHandlerProvider);
     // テスト対象メソッドを呼び出し
-    await eventHandler.onCreate(repo);
+    await eventHandler.onCreate(name, defaultBranch);
     verifyInOrder([
-      repository.getReadme(repo),
+      repository.getReadme(name, defaultBranch),
       stateNotifier.onMyError(const ErrorUiModel.network())
     ]);
   });
