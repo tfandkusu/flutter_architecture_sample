@@ -32,6 +32,7 @@ class DetailBodyWidget extends HookConsumerWidget {
     final uiModel = ref.watch(detailBodyUiModelProvider(id));
     // イベント処理担当
     final eventHandler = ref.read(detailEventHandlerProvider);
+    // 画面を開いたときにREADME.mdファイルをダウンロードする
     useEffect(() {
       eventHandler.onCreate(name, defaultBranch);
       return () {};

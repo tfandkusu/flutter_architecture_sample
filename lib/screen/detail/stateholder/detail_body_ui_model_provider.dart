@@ -3,6 +3,7 @@ import 'package:flutter_architecture_sample/screen/detail/stateholder/detail_ui_
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// 詳細画面のreadme.md部分の状態を提供するProvider
+/// ヘッダー部分だけの更新では、readme.md部分が更新されないように、ここだけ切り出した。
 final detailBodyUiModelProvider =
     Provider.autoDispose.family<DetailBodyUiModel, int>((ref, id) {
   final detailUiModel = ref.watch(detailUiModelProvider(id));
