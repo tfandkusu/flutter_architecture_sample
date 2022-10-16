@@ -94,8 +94,7 @@ void main() {
     ]);
     // テスト対象インスタンスを取得
     final repository = container.read(githubRepoRepositoryProvider);
-    final repo = getGithubRepoCatalog()[2];
-    await repository.getReadme(repo);
+    await repository.getReadme("groupie_sticky_header_sample", "main");
     verifyInOrder([
       remoteDataSource.getMarkdown(
           "groupie_sticky_header_sample", "main", "/README.md")
@@ -114,8 +113,7 @@ void main() {
     ]);
     // テスト対象インスタンスを取得
     final repository = container.read(githubRepoRepositoryProvider);
-    final repo = getGithubRepoCatalog()[2];
-    await repository.getReadme(repo);
+    await repository.getReadme("groupie_sticky_header_sample", "main");
     verifyInOrder([
       remoteDataSource.getMarkdown(
           "groupie_sticky_header_sample", "main", "/README.md"),
@@ -141,8 +139,9 @@ void main() {
     ]);
     // テスト対象インスタンスを取得
     final repository = container.read(githubRepoRepositoryProvider);
-    final repo = getGithubRepoCatalog()[2];
-    expect(() async => await repository.getReadme(repo),
+    expect(
+        () async =>
+            await repository.getReadme("groupie_sticky_header_sample", "main"),
         throwsA(isA<NotFoundException>()));
     verifyInOrder([
       remoteDataSource.getMarkdown(

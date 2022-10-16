@@ -32,7 +32,8 @@ Widget buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
     onTap: () {
       // 項目がクリックされたときの画面遷移処理
       Navigator.pushNamed(context, DetailScreen.routeName,
-          arguments: DetailScreenArgument(id: repo.id));
+          arguments: DetailScreenArgument(
+              id: repo.id, name: repo.name, defaultBranch: repo.defaultBranch));
     },
   );
 }

@@ -6,5 +6,10 @@ class DetailScreenArgument with _$DetailScreenArgument {
   /// 詳細画面呼び出しパラメータ
   ///
   /// [id] GitHubのリポジトリのID
-  const factory DetailScreenArgument({required int id}) = _DetailScreenArgument;
+  /// [name] GitHubのリポジトリ名
+  /// [defaultBranch] GitHubリポジトリのデフォルトブランチ
+  const factory DetailScreenArgument(
+      {required int id,
+      required String name,
+      required String defaultBranch}) = _DetailScreenArgument;
 }

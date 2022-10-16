@@ -40,7 +40,7 @@ class DetailScreen extends HookConsumerWidget {
     final repo = uiModel.repo;
     // 画面を開いたときにREADME.mdファイルをダウンロードする
     useEffect(() {
-      eventHandler.onCreate(repo);
+      eventHandler.onCreate(argument.name, argument.defaultBranch);
       return () {};
     }, const []);
 
@@ -129,7 +129,9 @@ class DetailScreen extends HookConsumerWidget {
       } else {
         // ネットワークエラー等それ以外のエラー
         return buildErrorListItem(
-            uiModel.error, () => eventHandler.onClickReload(uiModel.repo));
+            uiModel.error,
+            () => eventHandler.onClickReload(
+                uiModel.repo.name, uiModel.repo.defaultBranch));
       }
     } else {
       // README.md表示

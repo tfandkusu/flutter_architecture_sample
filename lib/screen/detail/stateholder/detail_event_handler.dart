@@ -1,5 +1,4 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
-import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:flutter_architecture_sample/screen/common/stateholder/map_error.dart';
 import 'package:flutter_architecture_sample/screen/detail/stateholder/detail_ui_model_state_notifier.dart';
 
@@ -15,25 +14,28 @@ class DetailEventHandler {
 
   /// 画面が開かれた時に呼ばれる
   ///
-  /// [repo] 対象GitHubリポジトリ
-  Future<void> onCreate(GithubRepo repo) async {
-    await _load(repo);
+  /// [name] 対象GitHubリポジトリ名
+  /// [defaultBranch] 対象GitHubリポジトリのデフォルトブランチ
+  Future<void> onCreate(String name, String defaultBranch) async {
+    await _load(name, defaultBranch);
   }
 
   /// 再読込ボタンが押されたときに呼ばれる
   ///
-  /// [repo] 対象GitHubリポジトリ
-  Future<void> onClickReload(GithubRepo repo) async {
+  /// [name] 対象GitHubリポジトリ名
+  /// [defaultBranch] 対象GitHubリポジトリのデフォルトブランチ
+  Future<void> onClickReload(String name, String defaultBranch) async {
     _stateNotifier.onReload();
-    _load(repo);
+    await _load(name, defaultBranch);
   }
 
   /// 読み込み処理
   ///
-  /// [repo] 対象GitHubリポジトリ
-  Future<void> _load(GithubRepo repo) async {
+  /// [name] Githubリポジトリ名
+  /// [defaultBranch] デフォルトブランチ
+  Future<void> _load(String name, String defaultBranch) async {
     try {
-      final readme = await _repository.getReadme(repo);
+      final readme = await _repository.getReadme(name, defaultBranch);
       // 成功ケース
       _stateNotifier.onLoadSuccess(readme);
     } on Exception catch (e) {

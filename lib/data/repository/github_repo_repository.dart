@@ -3,7 +3,6 @@ import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_
 import 'package:flutter_architecture_sample/data/remote/markdown_remote_data_source.dart';
 import 'package:flutter_architecture_sample/data/repository/github_repo_list_state_notifier.dart';
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
-import 'package:flutter_architecture_sample/model/github_repo.dart';
 
 /// データ層を代表してアプリに表示するGitHubリポジトリ一覧を更新する担当
 class GithubRepoRepository {
@@ -51,8 +50,9 @@ class GithubRepoRepository {
 
   /// README.mdをダウンロードする
   ///
-  /// [repo] GitHubリポジトリ
-  Future<String> getReadme(GithubRepo repo) async {
+  /// [name] GitHubリポジトリ名
+  /// [defaultBranch] GitHubリポジトリのデフォルトブランチ
+  Future<String> getReadme(String name, String defaultBranch) async {
     // README.mdが無ければreadme.mdをダウンロードする。
     final paths = [
       "/README.md",
@@ -61,7 +61,7 @@ class GithubRepoRepository {
     for (final path in paths) {
       try {
         return await _markdownRemoteDataSource.getMarkdown(
-            repo.name, repo.defaultBranch, path);
+            name, defaultBranch, path);
       } on NotFoundException catch (_) {
         //
       }
