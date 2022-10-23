@@ -47,7 +47,7 @@ android {
 
     defaultConfig {
         applicationId "com.tfandkusu.fas"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

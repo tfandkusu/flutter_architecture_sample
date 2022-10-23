@@ -2,7 +2,7 @@
     package="com.tfandkusu.fas">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="flutter_architecture_sample"
+        android:label="Flutter Architecture Sample"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
