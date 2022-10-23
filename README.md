@@ -22,7 +22,7 @@ TODO
 
 [asdf](https://asdf-vm.com/)を使用しています。インストールされていなければ[こちら](https://asdf-vm.com/guide/getting-started.html#_1-install-dependencies)を参考にインストールします。
 
-### ビルドする環境の構築
+## ビルドする環境の構築
 
 ```sh
 asdf plugin add flutter
@@ -31,7 +31,7 @@ asdf install
 gem install cocoapods
 ```
 
-### ビルドして実行する
+## ビルドして実行する
 
 
 ```sh
