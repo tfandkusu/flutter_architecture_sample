@@ -16,7 +16,7 @@ FlutterKaigi 2022「アプリの安全な変化と拡大を支えるアーキテ
 
 iOSユーザまたはPCユーザはこちらでご確認ください。
 
-TODO
+[Webアプリを開く](https://flutter-architecture-sample.web.app/)
 
 # ビルド
 

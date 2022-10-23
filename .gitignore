@@ -51,3 +51,5 @@ coverage/
 *.g.dart
 # Mockito
 *.mocks.dart
+# Firebase
+.firebase
