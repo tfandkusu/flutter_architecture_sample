@@ -34,4 +34,4 @@ jobs:
       # Build release build
       - run: flutter build web
       # Deploy to Firebase hosting
-      - run: firebase deploy  --token ${{ secrets.FIREBASE_TOKEN }} --only hosting:fas
+      - run: firebase deploy --token ${{ secrets.FIREBASE_TOKEN }} --only hosting:fas
