@@ -1,4 +1,4 @@
-package com.example.flutter_architecture_sample
+package com.tfandkusu.fas
 
 import io.flutter.embedding.android.FlutterActivity
 

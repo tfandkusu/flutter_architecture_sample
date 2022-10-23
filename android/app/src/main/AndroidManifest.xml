@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_architecture_sample">
+    package="com.tfandkusu.fas">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="flutter_architecture_sample"
+        android:label="Flutter Architecture Sample"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
+            android:name="com.tfandkusu.fas.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
