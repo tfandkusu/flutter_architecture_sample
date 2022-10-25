@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "tfandkusu"
+  },
+  "targets": {
+    "tfandkusu": {
+      "hosting": {
+        "fas": [
+          "flutter-architecture-sample"
+        ]
+      }
+    }
+  }
+}
