@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
 
 /// APIからマークダウンテキストをダウンロードする担当
@@ -14,8 +15,9 @@ class MarkdownRemoteDataSource {
   /// [path] ダウンロードファイルのフルパス
   Future<String> getMarkdown(
       String name, String defaultBranch, String path) async {
-    final url =
-        "https://raw.githubusercontent.com/tfandkusu/$name/$defaultBranch$path";
+    final url = kIsWeb
+        ? "https://fas-contents.web.app/$name$path"
+        : "https://raw.githubusercontent.com/tfandkusu/$name/$defaultBranch$path";
     try {
       final response = await _dio.get(url);
       return response.data.toString();
