@@ -3,12 +3,6 @@ on:
   push:
     branches:
       - main
-  # プルリクの作成と更新
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
 jobs:
   deploy:
     runs-on: ubuntu-latest
