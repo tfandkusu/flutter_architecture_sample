@@ -14,7 +14,8 @@ class MarkdownRemoteDataSource {
   /// [path] ダウンロードファイルのフルパス
   Future<String> getMarkdown(
       String name, String defaultBranch, String path) async {
-    final url = "https://fas-contents.web.app/test.md";
+    final url =
+        "https://raw.githubusercontent.com/tfandkusu/$name/$defaultBranch$path";
     try {
       final response = await _dio.get(url);
       return response.data.toString();
