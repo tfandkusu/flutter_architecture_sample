@@ -1,10 +1,10 @@
-# Flutter　Architecture Sample
+# Flutter Architecture Sample
 
 [![codecov](https://codecov.io/gh/tfandkusu/flutter_architecture_sample/branch/main/graph/badge.svg?token=BWEG8OYHZX)](https://codecov.io/gh/tfandkusu/flutter_architecture_sample)
 
 [FlutterKaigi 2022](https://flutterkaigi.jp/2022/)「Flutterアプリの安全な変化と拡大を支えるアーキテクチャと単体テスト」のためのサンプルアプリ
 
-# FlutterKaigi 2022での登壇資料
+# 登壇資料
 
 - **TODO** 動画
 - **TODO** スライド
@@ -45,7 +45,25 @@ flutter pub run build_runner build
 flutter run
 ```
 
-# 仕様技術
+# 機能
+
+| 私のGitHubリポジトリ一覧を表示 | 詳細画面ではさらにREADME.mdを表示 |
+| --- | --- |
+| <img src="https://user-images.githubusercontent.com/16898831/199762049-f12717d6-5a54-4d08-9163-352b68c98f69.png" width="300"> | <img src="https://user-images.githubusercontent.com/16898831/199762070-feee603c-7325-4b28-b04f-5e3db55060be.png" width="300">|
+
+## リポジトリ一覧はGitHubのREST APIから取得
+
+https://api.github.com/users/tfandkusu/repos?page=1
+
+## 所謂「いいね問題」に対応
+
+| 詳細画面で「いいね」を付けると | 一覧画面でも「いいね」が付いている |
+| --- | --- |
+| <img src="https://user-images.githubusercontent.com/16898831/199762737-14b06715-ffc2-4a80-b2a5-ae3697743b49.png" width="300"> | <img src="https://user-images.githubusercontent.com/16898831/199762753-2920dd2b-4d81-4fe9-8efd-4b60cf986f2c.png" width="300"> |
+
+「いいね」を付けた情報はアプリローカルに保存
+
+# 使用技術
 
 ## 基本
 
@@ -111,7 +129,7 @@ flutter run
 ## UiModelProvider
 
 - 画面の状態をWidgetに提供します。
-- その状態はUiModelStateNotifierとModelStateNotiferの変更を監視し、両者を合成して作成します。
+- UiModelStateNotifierとModelStateNotiferの変更を監視し、両者を合成して画面の状態を作成します。
 
 ## EventHandler
 
@@ -131,7 +149,7 @@ flutter run
 
 このアーキテクチャは1画面1[HookConsumerWidget](https://pub.dev/documentation/hooks_riverpod/latest/hooks_riverpod/HookConsumerWidget-class.html)構成のため、画面の状態が変わるとconstを付けた要素以外のすべての要素がリビルドされます。もし画面の要素数が多く描画パフォーマンスの問題が発生したがリビルド範囲を狭めることで解決できる場合は、下図の構成にすることでリビルド範囲を限定することができます。このサンプルアプリでは詳細画面の上部分と下部分でリビルド範囲を分割しています。
 
-![header_body](https://user-images.githubusercontent.com/16898831/199761264-ca1d3657-0dec-484b-b303-759a27c10ea1.png)
+![header_body](https://user-images.githubusercontent.com/16898831/199765501-08b2c1c8-2cfc-4a14-942e-47a0be72433a.png)
 
 ![hook_consumer_widget](https://user-images.githubusercontent.com/16898831/199713866-02c11b2c-cfbc-486d-83bb-13099e899ce1.png)
 
