@@ -125,7 +125,6 @@ https://api.github.com/users/tfandkusu/repos?page=1
 - 画面固有の状態遷移を担当します。
 - 1画面に1つのUiModelクラスがあり、そのインスタンスを状態として持つStateNotifierです。
 
-
 ## UiModelProvider
 
 - 画面の状態をWidgetに提供します。
