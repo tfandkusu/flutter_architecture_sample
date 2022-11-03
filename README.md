@@ -129,7 +129,9 @@ flutter run
 
 ## 描画パフォーマンスのためにWidgetのリビルド範囲を狭めたい場合
 
-このアーキテクチャは1画面1[HookConsumerWidget](https://pub.dev/documentation/hooks_riverpod/latest/hooks_riverpod/HookConsumerWidget-class.html)の構成のため、画面の状態が変わるとconstを付けた要素以外のすべての要素がリビルドされます。もし画面の要素数が多く描画パフォーマンスの問題が発生して、リビルド範囲を狭めることで解決できる場合は、下図の構成にすることで、リビルド範囲を限定することができます。このサンプルアプリでは詳細画面の上部分と下部分でリビルド範囲を分割しています。
+このアーキテクチャは1画面1[HookConsumerWidget](https://pub.dev/documentation/hooks_riverpod/latest/hooks_riverpod/HookConsumerWidget-class.html)構成のため、画面の状態が変わるとconstを付けた要素以外のすべての要素がリビルドされます。もし画面の要素数が多く描画パフォーマンスの問題が発生したがリビルド範囲を狭めることで解決できる場合は、下図の構成にすることでリビルド範囲を限定することができます。このサンプルアプリでは詳細画面の上部分と下部分でリビルド範囲を分割しています。
+
+![header_body](https://user-images.githubusercontent.com/16898831/199761264-ca1d3657-0dec-484b-b303-759a27c10ea1.png)
 
 ![hook_consumer_widget](https://user-images.githubusercontent.com/16898831/199713866-02c11b2c-cfbc-486d-83bb-13099e899ce1.png)
 
