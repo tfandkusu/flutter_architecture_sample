@@ -1,4 +1,4 @@
-# Flutter　
+# Flutter　Architecture Sample
 
 [![codecov](https://codecov.io/gh/tfandkusu/flutter_architecture_sample/branch/main/graph/badge.svg?token=BWEG8OYHZX)](https://codecov.io/gh/tfandkusu/flutter_architecture_sample)
 
@@ -63,6 +63,7 @@ flutter run
 
 ## 表示
 
+- [sprintf](https://pub.dev/packages/sprintf)
 - [flutter_markdown](https://pub.dev/packages/flutter_markdown)
 - [url_launcher](https://pub.dev/packages/url_launcher)
 
@@ -81,21 +82,60 @@ flutter run
 
 # アーキテクチャ
 
-[Androidのアプリ アーキテクチャガイド](https://developer.android.com/jetpack/guide)に沿った2レイヤー構成のアーキテクチャです。
+[Androidのアプリ アーキテクチャガイド](https://developer.android.com/jetpack/guide)に沿った2レイヤ構成のアーキテクチャです。
 
 ![architecture](https://user-images.githubusercontent.com/16898831/199698178-77f2afc4-b1f3-4b54-a142-f216715d9553.png)
 
-## RemoteDataStore
+## RemoteDataSource
 
 - APIアクセスなどのネットワーク通信を担当します。
 
-## LocalDataStore
+## LocalDataSource
 
 - アプリローカルへの情報の読み書きを担当します。
 
 ## ModelStateNotifier
 
-- 複数の画面から使われるデータは別の画面で行われたデータ更新をもれなく反映するために、[RiverpodのStateNotifier](https://riverpod.dev/docs/providers/state_notifier_provider/)に持たせています。
+- 別の画面で行われた更新をもれなく反映するために、複数の画面から使われるデータは[RiverpodのStateNotifier](https://riverpod.dev/docs/providers/state_notifier_provider/)に持たせています(所謂「いいね問題」対応)。
 
-# 描画パフォーマンスについて
+## Repository
+
+- データレイヤを代表して各種データソースにアクセスして、その結果を返却したり、ModelStateNotifierを更新します。
+
+## UiModelStateNotifier
+
+- 画面固有の状態遷移を担当します。
+- 1画面に1つのUiModelクラスがあり、そのインスタンスを状態として持つStateNotifierです。
+
+
+## UiModelProvider
+
+- 画面の状態をWidgetに提供します。
+- その状態はUiModelStateNotifierとModelStateNotiferの変更を監視し、両者を合成して作成します。
+
+## EventHandler
+
+- 画面が開かれた時の処理とユーザ操作によって始まる処理は、このクラスに記述します。
+- 処理の内容はUiModelStateNotifierとRepositoryのメソッド呼び出しとなります。
+
+# Tips
+
+## 実プロダクトではドメインレイヤが必要
+
+このサンプルアプリのアーキテクチャのまま実プロダクトを作成すると、EventHandlerクラスとその単体テストが巨大ファイルになり、可読性が悪くなる可能性があります。
+そこで[ドメインレイヤ](https://developer.android.com/jetpack/guide/domain-layer)を追加して、1処理を1実装クラスと1単体テストファイルにすることで、巨大ファイルの発生を防ぎます。
+
+![domain](https://user-images.githubusercontent.com/16898831/199710979-1a24a428-29d9-4eb9-9c5f-3a2af3eed07f.png)
+
+## 描画パフォーマンスのためにWidgetのリビルド範囲を狭めたい場合
+
+このアーキテクチャは1画面1[HookConsumerWidget](https://pub.dev/documentation/hooks_riverpod/latest/hooks_riverpod/HookConsumerWidget-class.html)の構成のため、画面の状態が変わるとconstを付けた要素以外のすべての要素がリビルドされます。もし画面の要素数が多く描画パフォーマンスの問題が発生して、リビルド範囲を狭めることで解決できる場合は、下図の構成にすることで、リビルド範囲を限定することができます。このサンプルアプリでは詳細画面の上部分と下部分でリビルド範囲を分割しています。
+
+![hook_consumer_widget](https://user-images.githubusercontent.com/16898831/199713866-02c11b2c-cfbc-486d-83bb-13099e899ce1.png)
+
+
+
+
+
+
 
