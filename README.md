@@ -1,8 +1,13 @@
-# 【WIP】flutter_architecture_sample
+# Flutter　
 
 [![codecov](https://codecov.io/gh/tfandkusu/flutter_architecture_sample/branch/main/graph/badge.svg?token=BWEG8OYHZX)](https://codecov.io/gh/tfandkusu/flutter_architecture_sample)
 
-FlutterKaigi 2022「アプリの安全な変化と拡大を支えるアーキテクチャと単体テスト」のためのサンプルアプリ
+[FlutterKaigi 2022](https://flutterkaigi.jp/2022/)「Flutterアプリの安全な変化と拡大を支えるアーキテクチャと単体テスト」のためのサンプルアプリ
+
+# FlutterKaigi 2022での登壇資料
+
+- **TODO** 動画
+- **TODO** スライド
 
 # インストール
 
@@ -39,3 +44,12 @@ flutter pub get
 flutter pub run build_runner build
 flutter run
 ```
+
+# アーキテクチャ
+
+
+# 仕様技術
+
+
+# 描画パフォーマンスについて
+
