@@ -3,6 +3,7 @@ import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_source.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_source_provider.dart';
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
+import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/screen/home/widget/home_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -56,5 +57,28 @@ void main() {
     final reloadFinder = find.text("再読込");
     expect(messageFinder, findsOneWidget);
     expect(reloadFinder, findsOneWidget);
+  });
+  // 「いいね」を付けるテスト
+  testWidgets('HomeScreen favorite', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final remoteDataStore = MockGithubRepoRemoteDataSource();
+    final repos = getGithubRepoCatalog();
+    when(remoteDataStore.getGithubRepoList()).thenAnswer((_) async => repos);
+    await tester.pumpWidget(ProviderScope(
+      overrides: [
+        githubRepoRemoteDataSourceProvider.overrideWithValue(remoteDataStore)
+      ],
+      child: const MaterialApp(home: HomeScreen()),
+    ));
+    await tester.pumpAndSettle();
+    // 1件目の「いいね」ボタン
+    final likeFinder = find.byIcon(Icons.favorite).first;
+    // 「いいね」ボタンが灰色であることを確認
+    expect((tester.firstWidget(likeFinder) as Icon).color, MyColors.likeOff);
+    // 「いいね」ボタンを押す
+    await tester.tap(likeFinder);
+    await tester.pumpAndSettle();
+    // 「いいね」ボタンが赤くなっていることを確認
+    expect((tester.firstWidget(likeFinder) as Icon).color, MyColors.likeOn);
   });
 }
