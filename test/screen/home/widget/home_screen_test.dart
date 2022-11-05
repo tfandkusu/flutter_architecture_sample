@@ -58,7 +58,7 @@ void main() {
     expect(messageFinder, findsOneWidget);
     expect(reloadFinder, findsOneWidget);
   });
-  // 「いいね」を付けるテスト
+  // 「いいね」を付けて消すテスト
   testWidgets('HomeScreen favorite', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final remoteDataStore = MockGithubRepoRemoteDataSource();
@@ -72,13 +72,20 @@ void main() {
     ));
     await tester.pumpAndSettle();
     // 1件目の「いいね」ボタン
-    final likeFinder = find.byIcon(Icons.favorite).first;
+    final favoriteFinder = find.byIcon(Icons.favorite).first;
     // 「いいね」ボタンが灰色であることを確認
-    expect((tester.firstWidget(likeFinder) as Icon).color, MyColors.likeOff);
+    expect(
+        (tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOff);
     // 「いいね」ボタンを押す
-    await tester.tap(likeFinder);
+    await tester.tap(favoriteFinder);
     await tester.pumpAndSettle();
     // 「いいね」ボタンが赤くなっていることを確認
-    expect((tester.firstWidget(likeFinder) as Icon).color, MyColors.likeOn);
+    expect((tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOn);
+    // 「いいね」ボタンを押す
+    await tester.tap(favoriteFinder);
+    await tester.pumpAndSettle();
+    // 「いいね」ボタンが灰色に戻ることを確認
+    expect(
+        (tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOff);
   });
 }
