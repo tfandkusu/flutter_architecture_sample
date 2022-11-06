@@ -9,7 +9,7 @@ class FavoriteLocalDataSource {
   ///
   /// [githubRepoName] GitHubリポジトリの名前
   /// [favorite] trueの時は「いいね」を付ける。falseの時は「いいね」を消す。
-  void setFavorite(String githubRepoName, bool favorite) async {
+  Future<void> setFavorite(String githubRepoName, bool favorite) async {
     // SharedPreferencesのインスタンスを得る
     final prefs = await SharedPreferences.getInstance();
     // 現在の「いいね」を付けたGitHubリポジトリ一覧を得る
@@ -27,7 +27,7 @@ class FavoriteLocalDataSource {
       nameSet.remove(githubRepoName);
     }
     // 新しい「いいね」を付けたGitHubリポジトリ名一覧をString型のリストとして保存する
-    prefs.setStringList(_keyFavoriteGitHubRepoNameList, nameSet.toList());
+    await prefs.setStringList(_keyFavoriteGitHubRepoNameList, nameSet.toList());
   }
 
   /// 「いいね」を付けたリポジトリ一覧を得る
@@ -39,5 +39,11 @@ class FavoriteLocalDataSource {
         prefs.getStringList(_keyFavoriteGitHubRepoNameList) ?? <String>[];
     // Setに変換して返却する
     return nameList.toSet();
+  }
+
+  /// 「いいね」を付けたリポジトリ一覧を全削除する(テスト用)
+  Future<void> clear() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_keyFavoriteGitHubRepoNameList);
   }
 }

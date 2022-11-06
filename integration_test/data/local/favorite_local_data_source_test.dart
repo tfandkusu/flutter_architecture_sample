@@ -1,15 +1,14 @@
 import 'package:flutter_architecture_sample/data/local/favorite_local_data_source_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-/// FavoriteLocalDataSourceのテスト
+/// FavoriteLocalDataSourceを実機またはエミュレータで動かす
 void main() {
   test("FavoriteLocalDataSource", () async {
-    // PC上で単体テストが動くようにするための設定
-    SharedPreferences.setMockInitialValues({});
     final container = ProviderContainer();
     final localDataSource = container.read(favoriteLocalDataSourceProvider);
+    // データをクリアする
+    await localDataSource.clear();
     // 最初は何も「いいね」をしていない
     expect(await localDataSource.getFavoriteRepoNameSet(), <String>{});
     // flutter_architecture_sampleに「いいね」を付ける
@@ -36,8 +35,5 @@ void main() {
     await localDataSource.setFavorite('unknown', false);
     expect(await localDataSource.getFavoriteRepoNameSet(),
         <String>{'android_app_template'});
-    // clearメソッド呼び出し
-    await localDataSource.clear();
-    expect(await localDataSource.getFavoriteRepoNameSet(), <String>{});
   });
 }

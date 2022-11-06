@@ -45,7 +45,7 @@ class GithubRepoRepository {
     // UI層を更新するためにStateNotifierに設定する
     _stateNotifier.setFavorite(name, favorite);
     // アプリローカルのデータを更新する
-    _localDataSource.setFavorite(name, favorite);
+    await _localDataSource.setFavorite(name, favorite);
   }
 
   /// README.mdをダウンロードする
