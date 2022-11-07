@@ -32,6 +32,8 @@ class HomeEventHandler {
   }
 
   /// GitHubリポジトリ項目がクリックされたときに呼ばれる
+  ///
+  /// [repo] クリックされたGitHubリポジトリ
   void onClickRepo(GithubRepo repo) {
     // トラッキング情報を送る
     fa.send("callDetailScreen", {"name": repo.name});
