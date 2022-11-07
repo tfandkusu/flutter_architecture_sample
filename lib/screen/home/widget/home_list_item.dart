@@ -4,8 +4,6 @@ import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/fork_label.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/language_label.dart';
-import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen.dart';
-import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen_argument.dart';
 import 'package:flutter_architecture_sample/screen/home/stateholder/home_event_handler.dart';
 import 'package:flutter_architecture_sample/util/make_date_string.dart';
 
@@ -31,9 +29,7 @@ Widget buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
     ),
     onTap: () {
       // 項目がクリックされたときの画面遷移処理
-      Navigator.pushNamed(context, DetailScreen.routeName,
-          arguments: DetailScreenArgument(
-              id: repo.id, name: repo.name, defaultBranch: repo.defaultBranch));
+      eventHandler.onClickRepo(repo);
     },
   );
 }

@@ -1,3 +1,4 @@
+import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:flutter_architecture_sample/screen/common/stateholder/error_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,5 +29,17 @@ class HomeUiModelStateNotifier extends StateNotifier<HomeUiModel> {
   /// [error] エラー情報
   void onMyError(ErrorUiModel error) {
     state = state.copyWith(progress: false, error: error);
+  }
+
+  /// 詳細画面を呼び出す
+  ///
+  /// [repo] 詳細画面を呼び出す対象のGitHubリポジトリ
+  void callDetailScreen(GithubRepo repo) {
+    state = state.copyWith(callDetailScreen: repo);
+  }
+
+  /// 詳細画面の呼び出しが完了した時に呼ばれる
+  void onDetailScreenCalled() {
+    state = state.copyWith(callDetailScreen: null);
   }
 }

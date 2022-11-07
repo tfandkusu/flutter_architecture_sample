@@ -1,3 +1,4 @@
+import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 import 'package:flutter_architecture_sample/screen/common/stateholder/error_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model.dart';
 import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model_state_notifier_provider.dart';
@@ -31,6 +32,22 @@ void main() {
         const HomeUiModel(
             progress: true, repos: [], error: ErrorUiModel.noError()));
     stateNotifier.onLoadSuccess();
+    expect(
+        getState(),
+        const HomeUiModel(
+            progress: false, repos: [], error: ErrorUiModel.noError()));
+    // 詳細画面に遷移
+    final repo = getGithubRepoCatalog()[0];
+    stateNotifier.callDetailScreen(repo);
+    expect(
+        getState(),
+        HomeUiModel(
+            progress: false,
+            repos: [],
+            error: const ErrorUiModel.noError(),
+            callDetailScreen: repo));
+    // 遷移完了
+    stateNotifier.onDetailScreenCalled();
     expect(
         getState(),
         const HomeUiModel(
