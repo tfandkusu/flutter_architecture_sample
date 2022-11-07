@@ -144,6 +144,90 @@ https://api.github.com/users/tfandkusu/repos?page=1
 
 ![domain](https://user-images.githubusercontent.com/16898831/199710979-1a24a428-29d9-4eb9-9c5f-3a2af3eed07f.png)
 
+## ワンショットオペレーションを実装したい場合
+
+このサンプルアプリには画面遷移やToastなど、ワンショットオペレーションを取り扱う場合の対応も実装されています。ホーム画面から詳細画面の遷移を状態ホルダから制御しています。
+
+まず画面の状態に、ワンショットオペレーションの呼び出しパラメータをnullableなフィールドとして追加します。
+
+```dart
+@freezed
+class HomeUiModel with _$HomeUiModel {
+  /// ホーム画面の状態
+  ///  
+  /// [callDetailScreen] 【追加】詳細画面を呼び出す
+  const factory HomeUiModel(
+      {required bool progress,
+      required List<GithubRepo> repos,
+      required ErrorUiModel error,
+      GithubRepo? callDetailScreen}) = _HomeUiModel;
+}
+```
+
+画面の状態のStateNotifierに、ワンショットオペレーションの呼び出しパラメータに値を設定するメソッドと、それをnullに戻すメソッドを追加します。
+
+```dart
+class HomeUiModelStateNotifier extends StateNotifier<HomeUiModel> {
+  HomeUiModelStateNotifier()
+      : super(const HomeUiModel(
+            progress: true, repos: [], error: ErrorUiModel.noError()));
+
+  /// 詳細画面を呼び出す
+  ///
+  /// [repo] 詳細画面を呼び出す対象のGitHubリポジトリ
+  void callDetailScreen(GithubRepo repo) {
+    state = state.copyWith(callDetailScreen: repo);
+  }
+
+  /// 詳細画面の呼び出しが完了した時に呼ばれる
+  void onDetailScreenCalled() {
+    state = state.copyWith(callDetailScreen: null);
+  }
+}
+```
+
+EventHandlerのメソッドからStateNotifierのメソッドを呼び出します。
+
+```dart
+/// ホーム画面のイベント処理担当クラス
+class HomeEventHandler {
+
+  // 略
+
+  /// GitHubリポジトリ項目がクリックされたときに呼ばれる
+  ///
+  /// [repo] クリックされたGitHubリポジトリ
+  void onClickRepo(GithubRepo repo) {
+    // 詳細画面を呼び出す
+    _stateNotifier.callDetailScreen(repo);
+  }
+
+  /// 詳細画面の呼び出しが完了したときに呼ばれる
+  void onDetailScreenCalled() {
+    _stateNotifier.onDetailScreenCalled();
+  }
+}
+```
+
+画面のWidgetでは[ref.listen](https://riverpod.dev/docs/concepts/reading/#using-reflisten-to-react-to-a-provider-change)メソッドのコールバック内で `checkOneShotOperation` メソッドを呼び出し、そのコールバックに値が設定されたときの処理を記載します。処理が完了した後のEventHandlerメソッド呼び出しも忘れずに行います。
+
+
+```dart
+ref.listen(homeUiModelProvider, (previous, next) {
+  checkOneShotOperation(previous, next, (state) => state.callDetailScreen,
+      (repo) {
+    // 詳細画面に遷移する
+    Navigator.pushNamed(context, DetailScreen.routeName,
+        arguments: DetailScreenArgument(
+            id: repo.id,
+            name: repo.name,
+            defaultBranch: repo.defaultBranch));
+    // 遷移した場合は完了報告を行う
+    eventHandler.onDetailScreenCalled();
+  });
+});
+```
+
 ## 描画パフォーマンスのためにWidgetのリビルド範囲を狭めたい場合
 
 このアーキテクチャは1画面1[HookConsumerWidget](https://pub.dev/documentation/hooks_riverpod/latest/hooks_riverpod/HookConsumerWidget-class.html)構成のため、画面の状態が変わるとconstを付けた要素以外のすべての要素がリビルドされます。もし画面の要素数が多く描画パフォーマンスの問題が発生したがリビルド範囲を狭めることで解決できる場合は、下図の構成にすることでリビルド範囲を限定することができます。このサンプルアプリでは詳細画面の上部分と下部分でリビルド範囲を分割しています。
@@ -151,10 +235,3 @@ https://api.github.com/users/tfandkusu/repos?page=1
 ![header_body](https://user-images.githubusercontent.com/16898831/199765501-08b2c1c8-2cfc-4a14-942e-47a0be72433a.png)
 
 ![hook_consumer_widget](https://user-images.githubusercontent.com/16898831/199713866-02c11b2c-cfbc-486d-83bb-13099e899ce1.png)
-
-
-
-
-
-
-

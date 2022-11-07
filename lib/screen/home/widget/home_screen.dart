@@ -24,9 +24,10 @@ class HomeScreen extends HookConsumerWidget {
     final eventHandler = ref.read(homeEventHandlerProvider);
     // ワンショットオペレーションの対応
     ref.listen(homeUiModelProvider, (previous, next) {
-      // 詳細画面に遷移する
+      // 詳細画面への遷移要求があるか確認する
       checkOneShotOperation(previous, next, (state) => state.callDetailScreen,
           (repo) {
+        // 詳細画面に遷移する
         Navigator.pushNamed(context, DetailScreen.routeName,
             arguments: DetailScreenArgument(
                 id: repo.id,
