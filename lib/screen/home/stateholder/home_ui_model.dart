@@ -10,8 +10,10 @@ class HomeUiModel with _$HomeUiModel {
   /// [progress] 読み込み中表示
   /// [repos] GitHubリポジトリ一覧
   /// [error] エラー状態
+  /// [callDetailScreen] 詳細画面を呼び出す
   const factory HomeUiModel(
       {required bool progress,
       required List<GithubRepo> repos,
-      required ErrorUiModel error}) = _HomeUiModel;
+      required ErrorUiModel error,
+      GithubRepo? callDetailScreen}) = _HomeUiModel;
 }

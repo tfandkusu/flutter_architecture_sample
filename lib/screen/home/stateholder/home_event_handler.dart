@@ -1,6 +1,8 @@
 import 'package:flutter_architecture_sample/data/repository/github_repo_repository.dart';
+import 'package:flutter_architecture_sample/model/github_repo.dart';
 import 'package:flutter_architecture_sample/screen/common/stateholder/map_error.dart';
 import 'package:flutter_architecture_sample/screen/home/stateholder/home_ui_model_state_notifier.dart';
+import 'package:flutter_architecture_sample/util/fa.dart';
 
 /// ホーム画面のイベント処理担当クラス
 class HomeEventHandler {
@@ -10,7 +12,10 @@ class HomeEventHandler {
   /// Repositoryを操作する担当
   final GithubRepoRepository _repository;
 
-  HomeEventHandler(this._stateNotifier, this._repository);
+  /// Firebase Analyticsのトラッキング情報を送信する担当
+  final FA fa;
+
+  HomeEventHandler(this._stateNotifier, this._repository, this.fa);
 
   /// 画面が開かれた時に呼ばれる
   Future<void> onCreate() async {
@@ -24,6 +29,21 @@ class HomeEventHandler {
     _stateNotifier.onReload();
     // 読み込み処理
     _load();
+  }
+
+  /// GitHubリポジトリ項目がクリックされたときに呼ばれる
+  ///
+  /// [repo] クリックされたGitHubリポジトリ
+  void onClickRepo(GithubRepo repo) {
+    // トラッキング情報を送る
+    fa.send("callDetailScreen", {"name": repo.name});
+    // 詳細画面を呼び出す
+    _stateNotifier.callDetailScreen(repo);
+  }
+
+  /// 詳細画面の呼び出しが完了したときに呼ばれる
+  void onDetailScreenCalled() {
+    _stateNotifier.onDetailScreenCalled();
   }
 
   /// 読み込み処理
