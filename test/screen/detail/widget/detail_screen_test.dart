@@ -16,21 +16,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'detail_screen_test.mocks.dart';
 
-/// ホーム画面のWidgetテスト
+/// 詳細画面のWidgetテスト
 @GenerateNiceMocks([MockSpec<MarkdownRemoteDataSource>()])
 void main() {
   // 読込成功ケース
   testWidgets('DetailScreen success', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final remoteDataStore = MockMarkdownRemoteDataSource();
+    final remoteDataSource = MockMarkdownRemoteDataSource();
     final repos = getGithubRepoCatalog();
     final stateNotifier = GithubRepoListStateNotifier.override(repos);
-    when(remoteDataStore.getMarkdown(
+    when(remoteDataSource.getMarkdown(
             "conference-app-2021", "main", "/README.md"))
         .thenAnswer((_) async => "# DroidKaigi 2021 official app");
     await tester.pumpWidget(ProviderScope(
         overrides: [
-          markdownRemoteDataSourceProvider.overrideWithValue(remoteDataStore),
+          markdownRemoteDataSourceProvider.overrideWithValue(remoteDataSource),
           githubRepoListStateNotifierProvider.overrideWithValue(stateNotifier)
         ],
         child: MaterialApp(
@@ -50,15 +50,15 @@ void main() {
   // 読込失敗ケース
   testWidgets('DetailScreen network error', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final remoteDataStore = MockMarkdownRemoteDataSource();
+    final remoteDataSource = MockMarkdownRemoteDataSource();
     final repos = getGithubRepoCatalog();
     final stateNotifier = GithubRepoListStateNotifier.override(repos);
-    when(remoteDataStore.getMarkdown(
+    when(remoteDataSource.getMarkdown(
             "conference-app-2021", "main", "/README.md"))
         .thenThrow(NetworkErrorException());
     await tester.pumpWidget(ProviderScope(
         overrides: [
-          markdownRemoteDataSourceProvider.overrideWithValue(remoteDataStore),
+          markdownRemoteDataSourceProvider.overrideWithValue(remoteDataSource),
           githubRepoListStateNotifierProvider.overrideWithValue(stateNotifier)
         ],
         child: MaterialApp(
@@ -80,15 +80,15 @@ void main() {
   // 「いいね」を付けて消すテスト
   testWidgets('DetailScreen favorite', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final remoteDataStore = MockMarkdownRemoteDataSource();
+    final remoteDataSource = MockMarkdownRemoteDataSource();
     final repos = getGithubRepoCatalog();
     final stateNotifier = GithubRepoListStateNotifier.override(repos);
-    when(remoteDataStore.getMarkdown(
+    when(remoteDataSource.getMarkdown(
             "conference-app-2021", "main", "/README.md"))
         .thenAnswer((_) async => "# DroidKaigi 2021 official app");
     await tester.pumpWidget(ProviderScope(
         overrides: [
-          markdownRemoteDataSourceProvider.overrideWithValue(remoteDataStore),
+          markdownRemoteDataSourceProvider.overrideWithValue(remoteDataSource),
           githubRepoListStateNotifierProvider.overrideWithValue(stateNotifier)
         ],
         child: MaterialApp(

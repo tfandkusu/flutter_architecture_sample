@@ -19,12 +19,12 @@ void main() {
   // 読込成功ケース
   testWidgets('HomeScreen success', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final remoteDataStore = MockGithubRepoRemoteDataSource();
+    final remoteDataSource = MockGithubRepoRemoteDataSource();
     final repos = getGithubRepoCatalog();
-    when(remoteDataStore.getGithubRepoList()).thenAnswer((_) async => repos);
+    when(remoteDataSource.getGithubRepoList()).thenAnswer((_) async => repos);
     await tester.pumpWidget(ProviderScope(
       overrides: [
-        githubRepoRemoteDataSourceProvider.overrideWithValue(remoteDataStore)
+        githubRepoRemoteDataSourceProvider.overrideWithValue(remoteDataSource)
       ],
       child: const MaterialApp(home: HomeScreen()),
     ));
@@ -41,12 +41,12 @@ void main() {
   // ネットワークエラーケース
   testWidgets('HomeScreen network error', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final remoteDataStore = MockGithubRepoRemoteDataSource();
-    when(remoteDataStore.getGithubRepoList())
+    final remoteDataSource = MockGithubRepoRemoteDataSource();
+    when(remoteDataSource.getGithubRepoList())
         .thenThrow(NetworkErrorException());
     await tester.pumpWidget(ProviderScope(
       overrides: [
-        githubRepoRemoteDataSourceProvider.overrideWithValue(remoteDataStore)
+        githubRepoRemoteDataSourceProvider.overrideWithValue(remoteDataSource)
       ],
       child: const MaterialApp(home: HomeScreen()),
     ));
@@ -61,12 +61,12 @@ void main() {
   // 「いいね」を付けて消すテスト
   testWidgets('HomeScreen favorite', (tester) async {
     SharedPreferences.setMockInitialValues({});
-    final remoteDataStore = MockGithubRepoRemoteDataSource();
+    final remoteDataSource = MockGithubRepoRemoteDataSource();
     final repos = getGithubRepoCatalog();
-    when(remoteDataStore.getGithubRepoList()).thenAnswer((_) async => repos);
+    when(remoteDataSource.getGithubRepoList()).thenAnswer((_) async => repos);
     await tester.pumpWidget(ProviderScope(
       overrides: [
-        githubRepoRemoteDataSourceProvider.overrideWithValue(remoteDataStore)
+        githubRepoRemoteDataSourceProvider.overrideWithValue(remoteDataSource)
       ],
       child: const MaterialApp(home: HomeScreen()),
     ));
