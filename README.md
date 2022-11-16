@@ -100,7 +100,7 @@ https://api.github.com/users/tfandkusu/repos?page=1
 
 # アーキテクチャ
 
-[Androidのアプリ アーキテクチャガイド](https://developer.android.com/jetpack/guide)に沿った2レイヤ構成のアーキテクチャです。
+[Androidのアプリ アーキテクチャガイド](https://developer.android.com/topic/architecture)に沿った2レイヤ構成のアーキテクチャです。
 
 ![architecture](https://user-images.githubusercontent.com/16898831/199698178-77f2afc4-b1f3-4b54-a142-f216715d9553.png)
 
@@ -134,6 +134,11 @@ https://api.github.com/users/tfandkusu/repos?page=1
 
 - 画面が開かれた時の処理とユーザ操作によって始まる処理は、このクラスに記述します。
 - 処理の内容はUiModelStateNotifierとRepositoryのメソッド呼び出しとなります。
+
+## ScreenWidget
+
+- UiModelProviderから提供されたUI状態に従いWidgetを構築します。
+- 画面が開かれた時とユーザ操作に対応して、EventHandlerのメソッド呼び出しを行います。
 
 # Tips
 
