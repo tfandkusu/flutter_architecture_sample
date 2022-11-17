@@ -7,7 +7,7 @@
 # 登壇資料
 
 - **TODO** 動画
-- **TODO** スライド
+- [スライド](https://www.docswell.com/s/tfandkusu/Z4X2DZ-flutterkaigi2022)
 
 # インストール
 
