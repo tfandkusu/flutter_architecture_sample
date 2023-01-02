@@ -17,7 +17,7 @@ Widget buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
     key: Key(repo.name),
     child: Column(
       children: [
-        _buildLine1(eventHandler, repo),
+        _buildLine1(context, eventHandler, repo),
         _HomeRepoListItemDescription(repo.description),
         _HomeRepoListItemLine3(repo.language, repo.updatedAt),
         const SizedBox(height: 16),
@@ -35,14 +35,19 @@ Widget buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
 }
 
 /// リポジトリ名、フォークラベル、「いいね」ボタンのWidgetを作成する
-Widget _buildLine1(HomeEventHandler eventHandler, GithubRepo repo) {
+Widget _buildLine1(
+    BuildContext context, HomeEventHandler eventHandler, GithubRepo repo) {
   return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
     const SizedBox(width: 16),
     // GitHubリポジトリ名
     Expanded(
       child: Text(
         repo.name,
-        style: const TextStyle(fontSize: 16, color: MyColors.textHE),
+        style: Theme.of(context)
+            .typography
+            .englishLike
+            .bodyLarge
+            ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
