@@ -37,17 +37,15 @@ Widget buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
 /// リポジトリ名、フォークラベル、「いいね」ボタンのWidgetを作成する
 Widget _buildLine1(
     BuildContext context, HomeEventHandler eventHandler, GithubRepo repo) {
+  final themeData = Theme.of(context);
   return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
     const SizedBox(width: 16),
     // GitHubリポジトリ名
     Expanded(
       child: Text(
         repo.name,
-        style: Theme.of(context)
-            .typography
-            .englishLike
-            .bodyLarge
-            ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        style: themeData.typography.englishLike.bodyLarge
+            ?.copyWith(color: themeData.colorScheme.onSurface),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
