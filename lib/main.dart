@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_source_dummy.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_source_provider.dart';
+import 'package:flutter_architecture_sample/resource/color_schemes.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen.dart';
 import 'package:flutter_architecture_sample/screen/home/widget/home_screen.dart';
@@ -28,9 +29,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: Strings.appTitle,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+        darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
         routes: {
           "/": (context) => const HomeScreen(),
           DetailScreen.routeName: (context) => const DetailScreen()
