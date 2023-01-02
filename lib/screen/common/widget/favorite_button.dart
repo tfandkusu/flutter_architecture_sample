@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/resource/strings.dart';
 
 /// 「いいね」ボタンをWidgetを作成する
-Widget buildFavoriteButton(bool favorite, Function() onPressed) {
+Widget buildFavoriteButton(
+    BuildContext context, bool favorite, Function() onPressed) {
+  final themeData = Theme.of(context);
   return IconButton(
       icon: Icon(Icons.favorite,
-          color: favorite ? MyColors.likeOn : MyColors.likeOff),
+          color: favorite
+              ? themeData.colorScheme.secondary
+              : themeData.colorScheme.secondaryContainer),
       tooltip: Strings.like,
       onPressed: onPressed);
 }

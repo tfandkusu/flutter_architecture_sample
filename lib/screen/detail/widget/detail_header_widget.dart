@@ -26,7 +26,7 @@ class DetailHeaderWidget extends HookConsumerWidget {
     final repo = uiModel.repo;
     return Column(children: [
       // GitHubリポジトリの名前、フォークラベル、「いいね」ボタン
-      _buildRow1(eventHandler, repo),
+      _buildRow1(context, eventHandler, repo),
       // 言語ラベルと更新日
       _DetailScreenRow3(repo.language, repo.updatedAt),
       // 説明文
@@ -40,7 +40,8 @@ class DetailHeaderWidget extends HookConsumerWidget {
   ///
   /// [eventHandler] イベント処理担当
   /// [repo] GitHubリポジトリ情報
-  Widget _buildRow1(DetailEventHandler eventHandler, GithubRepo repo) {
+  Widget _buildRow1(
+      BuildContext context, DetailEventHandler eventHandler, GithubRepo repo) {
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
       // GitHubリポジトリの名前
       Expanded(
@@ -57,7 +58,7 @@ class DetailHeaderWidget extends HookConsumerWidget {
       // フォークラベル
       Visibility(visible: repo.fork, child: const ForkLabel()),
       // 「いいね」ボタン
-      buildFavoriteButton(repo.favorite,
+      buildFavoriteButton(context, repo.favorite,
           () => eventHandler.onClickFavorite(repo.name, !repo.favorite))
     ]);
   }

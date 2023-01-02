@@ -54,7 +54,7 @@ Widget _buildLine1(
     Visibility(visible: repo.fork, child: const SizedBox(width: 16)),
     Visibility(visible: repo.fork, child: const ForkLabel()),
     // 「いいね」ボタン
-    buildFavoriteButton(repo.favorite, () {
+    buildFavoriteButton(context, repo.favorite, () {
       // 「いいね」ボタンが押されたときの処理
       eventHandler.onClickFavorite(repo.name, !repo.favorite);
     }),
