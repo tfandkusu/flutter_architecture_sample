@@ -9,7 +9,7 @@ Widget buildFavoriteButton(
       icon: Icon(Icons.favorite,
           color: favorite
               ? themeData.colorScheme.secondary
-              : themeData.colorScheme.secondaryContainer),
+              : themeData.colorScheme.surfaceVariant),
       tooltip: Strings.like,
       onPressed: onPressed);
 }
