@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
-import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/fork_label.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/language_label.dart';
@@ -69,6 +68,7 @@ class _HomeRepoListItemDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Column(
       children: [
         Visibility(
@@ -77,7 +77,8 @@ class _HomeRepoListItemDescription extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             width: double.infinity,
             child: Text(_description,
-                style: const TextStyle(color: MyColors.textME, fontSize: 14)),
+                style: themeData.typography.dense.bodyMedium
+                    ?.copyWith(color: themeData.colorScheme.onSurfaceVariant)),
           ),
         ),
         const SizedBox(height: 8)
@@ -98,6 +99,7 @@ class _HomeRepoListItemLine3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -108,7 +110,8 @@ class _HomeRepoListItemLine3 extends StatelessWidget {
         const Spacer(),
         // 更新日
         Text(makeDateString(_updatedAt),
-            style: const TextStyle(fontSize: 12, color: MyColors.textME)),
+            style: themeData.typography.dense.bodySmall
+                ?.copyWith(color: themeData.colorScheme.onSurfaceVariant)),
         const SizedBox(width: 16),
       ],
     );

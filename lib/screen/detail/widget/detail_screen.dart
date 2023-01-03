@@ -25,7 +25,7 @@ class DetailScreen extends StatelessWidget {
         backgroundColor: MyColors.transparent,
         shadowColor: MyColors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: MyColors.textHE),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // 左上「←」ボタンで前の画面に戻る
             Navigator.of(context).pop();
