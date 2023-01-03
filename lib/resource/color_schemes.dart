@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// Material Theme Builder
+// https://m3.material.io/theme-builder#/custom
+// で作成しました。
+
 const lightColorScheme = ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFF006493),
