@@ -49,7 +49,7 @@ flutter run
 
 | 私のGitHubリポジトリ一覧を表示 | 詳細画面ではさらにREADME.mdを表示 |
 | --- | --- |
-| <img src="https://user-images.githubusercontent.com/16898831/199762049-f12717d6-5a54-4d08-9163-352b68c98f69.png" width="300"> | <img src="https://user-images.githubusercontent.com/16898831/199762070-feee603c-7325-4b28-b04f-5e3db55060be.png" width="300">|
+| <img src="https://user-images.githubusercontent.com/16898831/210586452-df2210a2-38fd-4a37-af25-fc6f11948efb.png" width="300"> | <img src="https://user-images.githubusercontent.com/16898831/210586541-f000089b-512a-42be-a33d-ac22ca8cce4d.png" width="300">|
 
 ## リポジトリ一覧はGitHubのREST APIから取得
 
@@ -59,7 +59,7 @@ https://api.github.com/users/tfandkusu/repos?page=1
 
 | 詳細画面で「いいね」を付けると | 一覧画面でも「いいね」が付いている |
 | --- | --- |
-| <img src="https://user-images.githubusercontent.com/16898831/199762737-14b06715-ffc2-4a80-b2a5-ae3697743b49.png" width="300"> | <img src="https://user-images.githubusercontent.com/16898831/199762753-2920dd2b-4d81-4fe9-8efd-4b60cf986f2c.png" width="300"> |
+| <img src="https://user-images.githubusercontent.com/16898831/210586670-3e1d8817-44ad-4cee-a844-89f93b9a8ffc.png" width="300"> | <img src="https://user-images.githubusercontent.com/16898831/210586696-dc7bb803-d8b8-4ca8-bf82-a23349b64b49.png" width="300"> |
 
 「いいね」を付けた情報はアプリローカルに保存
 
