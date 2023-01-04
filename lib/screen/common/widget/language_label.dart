@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/resource/languages.dart';
 import 'package:flutter_architecture_sample/resource/my_colors.dart';
 
@@ -10,6 +10,7 @@ class LanguageLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     // プログラミング言語ラベルの色
     Color languageColor = MyColors.other;
     if (Languages.colorMap.containsKey(_language)) {
@@ -23,8 +24,8 @@ class LanguageLabel extends StatelessWidget {
           color: languageColor, borderRadius: BorderRadius.circular(14)),
       child: Text(
         _language,
-        style: const TextStyle(
-            color: MyColors.white, fontSize: 12, fontWeight: FontWeight.bold),
+        style: themeData.typography.englishLike.labelMedium
+            ?.copyWith(color: MyColors.white),
       ),
     );
   }

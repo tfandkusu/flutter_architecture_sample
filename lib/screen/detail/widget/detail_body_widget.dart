@@ -37,25 +37,26 @@ class DetailBodyWidget extends HookConsumerWidget {
       eventHandler.onCreate(name, defaultBranch);
       return () {};
     }, const []);
-    return _buildReadme(uiModel, eventHandler);
+    return _buildReadme(context, uiModel, eventHandler);
   }
 
   /// README.md表示部分を作成する
   ///
   /// [uiModel] UI状態
   /// [eventHandler] イベント処理担当
-  Widget _buildReadme(
-      DetailBodyUiModel uiModel, DetailEventHandler eventHandler) {
+  Widget _buildReadme(BuildContext context, DetailBodyUiModel uiModel,
+      DetailEventHandler eventHandler) {
     if (uiModel.progress) {
       // 読み込み中
       return const ProgressListItem();
     } else if (uiModel.error.hasError()) {
       if (uiModel.error == const ErrorUiModel.notFound()) {
         // README.mdがありませんエラー
-        return buildErrorListItemWithMessage(Strings.readmeNotFound, null);
+        return buildErrorListItemWithMessage(
+            context, Strings.readmeNotFound, null);
       } else {
         // ネットワークエラー等それ以外のエラー
-        return buildErrorListItem(uiModel.error,
+        return buildErrorListItem(context, uiModel.error,
             () => eventHandler.onClickReload(name, defaultBranch));
       }
     } else {

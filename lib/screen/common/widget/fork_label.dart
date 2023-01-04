@@ -8,17 +8,18 @@ class ForkLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Container(
       height: 28,
       alignment: Alignment.center,
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
       decoration: BoxDecoration(
-          color: MyColors.forkLabelBackground,
+          color: themeData.colorScheme.outline,
           borderRadius: BorderRadius.circular(8)),
-      child: const Text(
+      child: Text(
         Strings.fork,
-        style: TextStyle(
-            fontSize: 12, fontWeight: FontWeight.bold, color: MyColors.white),
+        style: themeData.typography.englishLike.labelSmall
+            ?.copyWith(color: MyColors.white),
       ),
     );
   }

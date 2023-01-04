@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_architecture_sample/main.dart' as app;
@@ -17,22 +16,26 @@ void main() {
     expect(repo1Finder, findsOneWidget);
     final langFinder = find.text("Python");
     expect(langFinder, findsWidgets);
+    // テーマの取得
+    final BuildContext context = tester.element(find.byType(Scaffold));
+    final themeData = Theme.of(context);
     // 1件目の「いいね」ボタン
     final favoriteFinder = find.byIcon(Icons.favorite).first;
     // 「いいね」ボタンが灰色であることを確認
-    expect(
-        (tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOff);
+    expect((tester.firstWidget(favoriteFinder) as Icon).color,
+        themeData.colorScheme.surfaceVariant);
     // 「いいね」ボタンを押す
     await tester.tap(favoriteFinder);
     await tester.pumpAndSettle();
     // 「いいね」ボタンが赤くなっていることを確認
-    expect((tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOn);
+    expect((tester.firstWidget(favoriteFinder) as Icon).color,
+        themeData.colorScheme.secondary);
     // 「いいね」ボタンを押す
     await tester.tap(favoriteFinder);
     await tester.pumpAndSettle();
     // 「いいね」ボタンが灰色に戻ることを確認
-    expect(
-        (tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOff);
+    expect((tester.firstWidget(favoriteFinder) as Icon).color,
+        themeData.colorScheme.surfaceVariant);
     // 詳細画面を開く
     await tester.tap(repo1Finder);
     await tester.pumpAndSettle();

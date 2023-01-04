@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_body_widget.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_header_widget.dart';
 import 'package:flutter_architecture_sample/screen/detail/widget/detail_screen_argument.dart';
-import 'package:flutter_architecture_sample/resource/my_colors.dart';
 
 /// 詳細画面。
 /// 1画面にひとつのHookConsumerWidgetだと、状態が変わる度に画面内のすべてがリビルドされる。
@@ -20,12 +19,13 @@ class DetailScreen extends StatelessWidget {
     // 詳細画面呼び出し引数
     final argument =
         ModalRoute.of(context)!.settings.arguments as DetailScreenArgument;
+    final themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.transparent,
-        shadowColor: MyColors.transparent,
+        backgroundColor: themeData.colorScheme.surface,
+        surfaceTintColor: themeData.colorScheme.surface,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: MyColors.textHE),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // 左上「←」ボタンで前の画面に戻る
             Navigator.of(context).pop();

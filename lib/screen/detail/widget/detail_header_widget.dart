@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
-import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/fork_label.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/language_label.dart';
@@ -26,11 +25,11 @@ class DetailHeaderWidget extends HookConsumerWidget {
     final repo = uiModel.repo;
     return Column(children: [
       // GitHubリポジトリの名前、フォークラベル、「いいね」ボタン
-      _buildRow1(eventHandler, repo),
+      _buildRow1(context, eventHandler, repo),
       // 言語ラベルと更新日
       _DetailScreenRow3(repo.language, repo.updatedAt),
       // 説明文
-      _buildRow3(repo.description),
+      _buildRow3(context, repo.description),
       // 区切り線
       const SizedBox(height: 16),
     ]);
@@ -40,7 +39,9 @@ class DetailHeaderWidget extends HookConsumerWidget {
   ///
   /// [eventHandler] イベント処理担当
   /// [repo] GitHubリポジトリ情報
-  Widget _buildRow1(DetailEventHandler eventHandler, GithubRepo repo) {
+  Widget _buildRow1(
+      BuildContext context, DetailEventHandler eventHandler, GithubRepo repo) {
+    final themeData = Theme.of(context);
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
       // GitHubリポジトリの名前
       Expanded(
@@ -48,7 +49,8 @@ class DetailHeaderWidget extends HookConsumerWidget {
           padding: const EdgeInsets.all(16),
           child: Text(
             repo.name,
-            style: const TextStyle(color: MyColors.textHE, fontSize: 20),
+            style: themeData.typography.englishLike.titleLarge
+                ?.copyWith(color: themeData.colorScheme.onSurface),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -57,7 +59,7 @@ class DetailHeaderWidget extends HookConsumerWidget {
       // フォークラベル
       Visibility(visible: repo.fork, child: const ForkLabel()),
       // 「いいね」ボタン
-      buildFavoriteButton(repo.favorite,
+      buildFavoriteButton(context, repo.favorite,
           () => eventHandler.onClickFavorite(repo.name, !repo.favorite))
     ]);
   }
@@ -65,15 +67,16 @@ class DetailHeaderWidget extends HookConsumerWidget {
   /// 3行目のWidgetを作成する
   ///
   /// [description] 説明文
-  Widget _buildRow3(String description) {
+  Widget _buildRow3(BuildContext context, String description) {
+    final themeData = Theme.of(context);
     return Visibility(
-      visible: description.isNotEmpty,
-      child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-          child: Text(description,
-              style: const TextStyle(color: MyColors.textME, fontSize: 14))),
-    );
+        visible: description.isNotEmpty,
+        child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Text(description,
+                style: themeData.typography.dense.bodyMedium?.copyWith(
+                    color: themeData.colorScheme.onSurfaceVariant))));
   }
 }
 
@@ -89,6 +92,7 @@ class _DetailScreenRow3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -99,7 +103,8 @@ class _DetailScreenRow3 extends StatelessWidget {
         const Spacer(),
         // 更新日
         Text(makeDateString(_updatedAt),
-            style: const TextStyle(fontSize: 12, color: MyColors.textME)),
+            style: themeData.typography.englishLike.bodySmall
+                ?.copyWith(color: themeData.colorScheme.onSurfaceVariant)),
         const SizedBox(width: 16),
       ],
     );

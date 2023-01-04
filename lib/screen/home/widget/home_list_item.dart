@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_sample/model/github_repo.dart';
-import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/favorite_button.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/fork_label.dart';
 import 'package:flutter_architecture_sample/screen/common/widget/language_label.dart';
@@ -17,7 +16,7 @@ Widget buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
     key: Key(repo.name),
     child: Column(
       children: [
-        _buildLine1(eventHandler, repo),
+        _buildLine1(context, eventHandler, repo),
         _HomeRepoListItemDescription(repo.description),
         _HomeRepoListItemLine3(repo.language, repo.updatedAt),
         const SizedBox(height: 16),
@@ -35,14 +34,17 @@ Widget buildRepoListItem(BuildContext context, HomeEventHandler eventHandler,
 }
 
 /// リポジトリ名、フォークラベル、「いいね」ボタンのWidgetを作成する
-Widget _buildLine1(HomeEventHandler eventHandler, GithubRepo repo) {
+Widget _buildLine1(
+    BuildContext context, HomeEventHandler eventHandler, GithubRepo repo) {
+  final themeData = Theme.of(context);
   return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
     const SizedBox(width: 16),
     // GitHubリポジトリ名
     Expanded(
       child: Text(
         repo.name,
-        style: const TextStyle(fontSize: 16, color: MyColors.textHE),
+        style: themeData.typography.englishLike.bodyLarge
+            ?.copyWith(color: themeData.colorScheme.onSurface),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
@@ -51,7 +53,7 @@ Widget _buildLine1(HomeEventHandler eventHandler, GithubRepo repo) {
     Visibility(visible: repo.fork, child: const SizedBox(width: 16)),
     Visibility(visible: repo.fork, child: const ForkLabel()),
     // 「いいね」ボタン
-    buildFavoriteButton(repo.favorite, () {
+    buildFavoriteButton(context, repo.favorite, () {
       // 「いいね」ボタンが押されたときの処理
       eventHandler.onClickFavorite(repo.name, !repo.favorite);
     }),
@@ -66,6 +68,7 @@ class _HomeRepoListItemDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Column(
       children: [
         Visibility(
@@ -74,7 +77,8 @@ class _HomeRepoListItemDescription extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             width: double.infinity,
             child: Text(_description,
-                style: const TextStyle(color: MyColors.textME, fontSize: 14)),
+                style: themeData.typography.dense.bodyMedium
+                    ?.copyWith(color: themeData.colorScheme.onSurfaceVariant)),
           ),
         ),
         const SizedBox(height: 8)
@@ -95,6 +99,7 @@ class _HomeRepoListItemLine3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -105,7 +110,8 @@ class _HomeRepoListItemLine3 extends StatelessWidget {
         const Spacer(),
         // 更新日
         Text(makeDateString(_updatedAt),
-            style: const TextStyle(fontSize: 12, color: MyColors.textME)),
+            style: themeData.typography.dense.bodySmall
+                ?.copyWith(color: themeData.colorScheme.onSurfaceVariant)),
         const SizedBox(width: 16),
       ],
     );

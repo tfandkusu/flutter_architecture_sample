@@ -3,7 +3,6 @@ import 'package:flutter_architecture_sample/catalog/github_repo_catalog.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_source.dart';
 import 'package:flutter_architecture_sample/data/remote/github_repo_remote_data_source_provider.dart';
 import 'package:flutter_architecture_sample/model/error/api_exceptions.dart';
-import 'package:flutter_architecture_sample/resource/my_colors.dart';
 import 'package:flutter_architecture_sample/screen/home/widget/home_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -71,21 +70,25 @@ void main() {
       child: const MaterialApp(home: HomeScreen()),
     ));
     await tester.pumpAndSettle();
+    // テーマの取得
+    final BuildContext context = tester.element(find.byType(Scaffold));
+    final themeData = Theme.of(context);
     // 1件目の「いいね」ボタン
     final favoriteFinder = find.byIcon(Icons.favorite).first;
     // 「いいね」ボタンが灰色であることを確認
-    expect(
-        (tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOff);
+    expect((tester.firstWidget(favoriteFinder) as Icon).color,
+        themeData.colorScheme.surfaceVariant);
     // 「いいね」ボタンを押す
     await tester.tap(favoriteFinder);
     await tester.pumpAndSettle();
     // 「いいね」ボタンが赤くなっていることを確認
-    expect((tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOn);
+    expect((tester.firstWidget(favoriteFinder) as Icon).color,
+        themeData.colorScheme.secondary);
     // 「いいね」ボタンを押す
     await tester.tap(favoriteFinder);
     await tester.pumpAndSettle();
     // 「いいね」ボタンが灰色に戻ることを確認
-    expect(
-        (tester.firstWidget(favoriteFinder) as Icon).color, MyColors.likeOff);
+    expect((tester.firstWidget(favoriteFinder) as Icon).color,
+        themeData.colorScheme.surfaceVariant);
   });
 }
